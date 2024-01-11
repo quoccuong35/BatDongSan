@@ -1,0 +1,734 @@
+﻿@using RealEstate.Entity;
+@{
+    ViewBag.Title = Resources.App.PhanGioHangChoSale;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    var NguoiDung = (List<v_users>)ViewBag.NguoiDung;
+}
+<style>
+
+    .parent {
+        position: absolute;
+        width: 100%;
+        height: 160px;
+        white-space: nowrap;
+        overflow-x: scroll;
+        background: #f5f5f5;
+    }
+
+    .child {
+        display: inline-block;
+    }
+
+    .dx-datagrid .dx-row-alt > td, .dx-datagrid .dx-row-alt > tr > td {
+        background-color: white;
+    }
+
+    .color_status {
+        cursor: default;
+        display: inline-block;
+        width: 15px;
+        height: 15px;
+        border: 1px solid #c3c3c3;
+        border-radius: 50%;
+        margin-top: 7px;
+    }
+</style>
+@section Header{
+    <div class="col-lg-3 d-flex align-items-center flex-wrap mr-1">
+        <button class="btn btn-icon mr-4" id="kt_aside_toggle">
+            <span class="svg-icon svg-icon-xl">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <rect x="0" y="0" width="24" height="24" />
+                        <path d="M2 11.5C2 12.3284 2.67157 13 3.5 13H20.5C21.3284 13 22 12.3284 22 11.5V11.5C22 10.6716 21.3284 10 20.5 10H3.5C2.67157 10 2 10.6716 2 11.5V11.5Z" fill="black" />
+                        <path opacity="0.5" fill-rule="evenodd" clip-rule="evenodd" d="M9.5 20C8.67157 20 8 19.3284 8 18.5C8 17.6716 8.67157 17 9.5 17H20.5C21.3284 17 22 17.6716 22 18.5C22 19.3284 21.3284 20 20.5 20H9.5ZM15.5 6C14.6716 6 14 5.32843 14 4.5C14 3.67157 14.6716 3 15.5 3H20.5C21.3284 3 22 3.67157 22 4.5C22 5.32843 21.3284 6 20.5 6H15.5Z" fill="black" />
+                    </g>
+                </svg>
+            </span>
+        </button>
+        <div class="d-flex align-items-baseline flex-wrap mr-2">
+            <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 ">
+                @*<li class="breadcrumb-item text-muted">
+                        <a href="javascript:;" class="text-muted">@Resources.App.CanHo</a>
+                    </li>*@
+                <li class="breadcrumb-item text-muted">
+                    <a href="@Url.Action("PhanGioHangChoSale", "CanHo")" class="text-muted"> @Resources.App.PhanGioHangChoSale</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="checkbox-inline">
+            @{
+                foreach (v_users item in NguoiDung)
+                {
+                    <label class="checkbox">
+                        <input type="checkbox" name="@item.NguoiDung" id="@item.NguoiDung">
+                        <span></span>@item.TenHienThi
+                    </label>
+                }
+            }
+        </div>
+    </div>
+    <div class="col-lg-2">
+        <div class="btn-group">
+            <a href="@Url.Action("Index","CanHo")" class="btn btn-default font-weight-bold  px-2 font-size-base  mr-2"> <i class="icon-1x text-dark-40 ki flaticon-reply"></i> @Resources.App.QuayLai</a>
+            <button type="button" class="btn btn-primary font-weight-bold px-2 font-size-base mr-2" id="btn-save">
+                <i class="icon-1x flaticon2-calendar-5"></i>
+                Submit
+            </button>
+            <button type="button" class="btn  btn-info font-weight-bold px-3 font-size-base" id="btn-xoachidinh">
+                <i class="icon-1x flaticon2-calendar-5"></i>
+                Xóa
+            </button>
+        </div>
+    </div>
+}
+@*<div class="TimKiem" >
+        <div class="col-lg-12">
+            <div class="parent">
+                <div class="dx-form-group">
+                    <div class="col-lg-2 child p-lg-1">
+                        <label class="form-label">Dự án</label>
+                        <div id="select-duan">
+                        </div>
+                    </div>
+                    <div class="col-xl-1 child p-lg-1">
+                        <label class="form-label">Tháp<span class="text-danger text-cost" id="text-thap"></span></label>
+                        <input type="text" id="txt-thap" class="form-control" placeholder="Nhập tháp" onchange="Search(this)" name="Thap">
+                    </div>
+                    <div class="col-lg-1 child p-lg-1">
+                        <label class="form-label">Tầng <span class="text-danger text-cost" id="text-txttang"></span></label>
+                        <input type="text" id="txt-tang" class="form-control" placeholder="Nhập tầng" onchange="Search(this)" name="Tang">
+                    </div>
+                    <div class="col-lg-1 child p-lg-1">
+                        <label class="form-label">Số căn<span class="text-danger text-cost" id="text-txtsocang"></span></label>
+                        <input type="text" id="txt-socan" class="form-control" placeholder="Nhập số căn" onchange="Search(this)" name="SoCan">
+                    </div>
+                    <div class="col-lg-2 child p-lg-1">
+                        <label class="form-label">Tình trạng CH</label>
+                        <div id="select-tinhtrangcanho">
+                        </div>
+                    </div>
+                    <div class="col-lg-2 child p-lg-1">
+                        <label class="form-label">Loại căn hộ</label>
+                        <div id="select-loaicanho">
+                        </div>
+                    </div>
+                    <div class="col-lg-2 child p-lg-1">
+                        <label class="form-label">Loại bàn giao</label>
+                        <div id="select-loaibangiao">
+                        </div>
+                    </div>
+                    <div class="col-lg-1 child p-lg-1">
+                        <label class="form-label">Số PN</label>
+                        <div id="txt-sophongngu">
+                        </div>
+                    </div>
+                    <div class="col-lg-1 child p-lg-1">
+                        <label class="form-label">Hướng cửa</label>
+                        <div id="select-huongcua">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-1 child p-lg-1">
+                        <label class="form-label">Hướng ban công</label>
+                        <div id="select-huongbancong">
+                        </div>
+                    </div>
+                    <div class="col-lg-2 child p-lg-1">
+                        <label class="form-label">Giỏ hàng của Salesman</label>
+                        <div id="select-salecman">
+                        </div>
+                    </div>
+                    <div class="col-lg-3 child p-lg-1">
+                        <label class="form-label">Tên/SĐT chủ nhà<span class="text-danger text-cost" id="text-chunha"></span></label>
+                        <input type="text" id="txt-chunha" class="form-control" placeholder="" onchange="FilterChuNha(this)" name="ThongTinChuNha">
+                    </div>
+                    <div class="col-lg-1 child p-lg-1">
+                        <label class="form-label">Diện tích<span class="text-danger text-cost" id="text-dientich"></span></label>
+                        <input type="text" id="txt-dientich" class="form-control" placeholder="" name="dientich">
+                    </div>
+                    <div class="col-lg-1 child p-lg-1">
+                        <label class="form-label">Giá bán<span class="text-danger text-cost" id="text-giaban"></span></label>
+                        <input type="text" id="txt-giaban" class="form-control" placeholder="" name="giaban">
+                    </div>
+                    <div class="col-lg-1 child p-lg-1">
+                        <label class="form-label">Giá thuê<span class="text-danger text-cost" id="text-giathue"></span></label>
+                        <input type="text" id="txt-giathue" class="form-control" placeholder="" name="giathue">
+                    </div>
+                    <div class="col-lg-1 child p-lg-1">
+                        <label class="form-label">Giá bán(USD)<span class="text-danger text-cost" id="text-giabanusd"></span></label>
+                        <input type="text" id="txt-giabanusd" class="form-control" placeholder="" name="giabanusd">
+                    </div>
+                    <div class="col-lg-1 child p-lg-1">
+                        <label class="form-label">Giá thuê(USD)<span class="text-danger text-cost" id="text-giathueusd"></span></label>
+                        <input type="text" id="txt-giathueusd" class="form-control" placeholder="" name="giathueusd">
+                    </div>
+                    <div class="col-lg-1 child p-lg-1">
+                        <a onclick="Refresh()" class="btn btn-warning btn-sm font-weight-bold"> <i class="icon-1x ki ki-refresh"></i>Cài đặt lại</a>
+                    </div>
+                    <div class="col-lg-1 child p-lg-1">
+                        <button type="button" class="btn btn-info btn-sm" onclick="TimKiemData()"> <i class="icon-1x flaticon-search-1"></i>Tìm kiếm</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <br /><br /><br /><br /><br /><br /><br /><br /><br />
+    </div>*@
+<div class="row">
+    <div class="col-lg-12">
+        <div id="list_danh_sach"></div>
+    </div>
+</div>
+@*<div class="row">
+        <table>
+            <tr>
+                <td><span class="color_status" style="background: #f8ec97;"></span></td>
+                <td>&nbsp;Cho thuê</td>
+                <td><span class="color_status" style="background: #f8c397;"></span></td>
+                <td>&nbsp;Bán</td>
+                <td><span class="color_status" style="background: #f8c397;"></span></td>
+                <td>&nbsp;Bán - Cho Thuê</td>
+                <td><span class="color_status" style="background: #f8c397;"></span></td>
+                <td>&nbsp;Đã Cho thuê nhưng Sắp hết hạn HĐ</td>
+                <td><span class="color_status" style="background: #fff;"></span></td>
+                <td>&nbsp;Khác</td>
+            </tr>
+        </table>
+    </div>*@
+@section CustomScripts{
+    <script type="text/javascript">
+        var dataNguoiDung = {};
+        $(function () {
+            var wh = $(window).height();
+            $('#list_danh_sach').height(wh - 200);
+            var json =  @Html.Raw(Json.Encode(NguoiDung));
+            dataNguoiDung = JSON.parse(JSON.stringify(json));
+            $("#select-salecman").dxTagBox({
+                items: dataNguoiDung,
+                placeholder: 'Chọn salesman..',
+                showClearButton: true,
+                searchEnabled: true,
+                valueExpr: "TenHienThi",
+                displayExpr: "TenHienThi",
+                onValueChanged: function (e) {
+                    var newValue = e.value;
+                    FilterUser('Salesman', newValue);
+                }
+            });
+             $.get('@Url.Action("getDuAn", "ThongTin")', function (rs) {
+                $("#select-duan").dxTagBox({
+                    items: rs,
+                    placeholder: 'Chọn dự án..',
+                    showClearButton: true,
+                    searchEnabled: true,
+                    valueExpr: "ten_duan",
+                    displayExpr: "ten_duan",
+                    onValueChanged: function (e) {
+                        var newValue = e.value;
+                        Fileter('DuAn', newValue);
+                    }
+                });
+            });
+            $.get('@Url.Action("getTinhTrangCanHo", "ThongTin")', function (rs) {
+                $("#select-tinhtrangcanho").dxTagBox({
+                    items: rs,
+                    placeholder: 'Chọn tình trạng..',
+                    showClearButton: true,
+                    searchEnabled: true,
+                    valueExpr: "tentinhtrangcanho",
+                    displayExpr: "tentinhtrangcanho",
+                    onValueChanged: function (e) {
+                        var newValue = e.value;
+                        Fileter('TinhTrang', newValue);
+                    }
+                });
+            });
+            $("#txt-sophongngu").dxTagBox({
+                items: @Html.Raw(RealEstate.Libs.ThongTin.GetSoPhongNgu()),
+                placeholder: 'Chọn số phòng ngủ..',
+                showClearButton: true,
+                searchEnabled: true,
+
+                valueExpr: "phong_ngu",
+                displayExpr: "phong_ngu",
+                onValueChanged: function (e) {
+                    var newValue = e.value;
+                    Fileter('PhongNgu', newValue);
+                    // Event handling commands go here
+                }
+            });
+            $("#select-loaicanho").dxTagBox({
+                    items: @Html.Raw(RealEstate.Libs.ThongTin.GetDanhMucString("loai")),
+                    placeholder: 'Chọn ..',
+                    showClearButton: true,
+                    searchEnabled: true,
+                    valueExpr: "name",
+                    displayExpr: "name",
+                    onValueChanged: function (e) {
+
+                        var newValue = e.value;
+                        Fileter('LoaiCanHo', newValue);
+                    }
+            });
+            $("#select-loaibangiao").dxTagBox({
+                    items: @Html.Raw(RealEstate.Libs.ThongTin.GetDanhMucString("loai-ban-giao")),
+                    placeholder: 'Chọn ..',
+                    showClearButton: true,
+                    searchEnabled: true,
+                    valueExpr: "name",
+                    displayExpr: "name",
+                    onValueChanged: function (e) {
+
+                        var newValue = e.value;
+                        Fileter('LoaiBanGiao', newValue);
+                    }
+            });
+            $("#select-huongcua").dxTagBox({
+                    items: @Html.Raw(RealEstate.Libs.ThongTin.GetDanhMucString("huong")),
+                    placeholder: 'Chọn ..',
+                    showClearButton: true,
+                    searchEnabled: true,
+                    valueExpr: "name",
+                    displayExpr: "name",
+                    onValueChanged: function (e) {
+
+                        var newValue = e.value;
+                        Fileter('HuongCua', newValue);
+                    }
+            });
+            $("#select-huongbancong").dxTagBox({
+                    items: @Html.Raw(RealEstate.Libs.ThongTin.GetDanhMucString("huong")),
+                    placeholder: 'Hướng ban công..',
+                    showClearButton: true,
+                    searchEnabled: true,
+                    valueExpr: "name",
+                    displayExpr: "name",
+                    onValueChanged: function (e) {
+
+                        var newValue = e.value;
+                        Fileter('HuongBanCong', newValue);
+                    }
+           });
+            LoadData();
+        });
+
+        function LoadData() {
+            try {
+                KTApp.blockPage({ overlayColor: '#000000', state: 'primary', message: 'Đang tải dữ liệu...' });
+                 $.get("@Url.Action("GetPhanGioHangChoSale", "CanHo")").done(function (rs) {
+                     LoadCanho(rs);
+                     KTApp.unblockPage();
+                });
+            } catch (e) {
+                KTApp.unblockPage();
+            }
+
+        }
+        function LoadCanho(datatitem) {
+            $("#list_danh_sach").dxDataGrid({
+                dataSource: datatitem,
+                showRowLines: true,
+                rowAlternationEnabled: true,
+                showBorders: true,
+                hoverStateEnabled: true,
+                allowColumnReordering: true,
+                allowColumnResizing: true,
+                columnAutoWidth: true,
+                //  columnHidingEnabled: true, // ẩn hiện nội dung khi màn hình quá nhỏ column
+                //columnChooser: {
+                //    enabled: true,
+                //    mode: "selectd" // or "ragAndDrop"
+                //},
+                keyExpr: "IDCanHo",
+                rowAlternationEnabled: false, // bỏ định dạng màu dòng chan le
+                filterRow: {
+                    visible: true,
+                },
+                paging: {
+                    pageSize: 20
+                },
+                pager: {
+                    showPageSizeSelector: true,
+                    allowedPageSizes: [10, 15, 20, 50, 100],
+                    showInfo: true
+                },
+                headerFilter: {
+                    visible: true
+                },
+                remoteOperations: true,
+                selection: {
+                    mode: "multiple"
+                },
+                columns: [
+                    {
+                        dataField: "DuAn",
+                        caption: "Dự Án",
+                        fixed: true,
+                        //allowFiltering: false
+                    },
+                    {
+                        dataField: "Thap",
+                        caption: "Tháp",
+                        fixed: true,
+                        width: 50
+                    },
+                    {
+                        dataField: "Tang",
+                        caption: "Tầng",
+                        fixed: true,
+                        width: 50
+                    },
+                    {
+                        dataField: "SoCan",
+                        caption: "Căn",
+                        fixed: true,
+                        width: 50
+                    },
+                    {
+                        dataField: "Salesman",
+                        caption: "Đã phân cho người dùng",
+                        width: 100
+                    },
+                    {
+                        dataField: "TenChuNha",
+                        caption: "Khách hàng",
+                        width: 150
+                    },
+                    {
+                        dataField: "LienHe",
+                        caption: "Liên hệ",
+                        width: 150
+                    },
+                    {
+                        dataField: "TinhTrang",
+                        caption: "Tình trạng",
+                        width: 100
+                    },
+                    {
+                        dataField: "LoaiCanHo",
+                        caption: "Loại căn hộ",
+                        width: 80
+                    },
+                    {
+                        dataField: "LoaiBanGiao",
+                        caption: "Loại bàn giao",
+                        width: 80
+                    },
+                    {
+                        dataField: "PhongNgu",
+                        caption: "PN",
+                        width: 50
+                    },
+                    {
+                        dataField: "WC",
+                        caption: "Wc",
+                        width: 50
+                    },
+                    {
+                        dataField: "DienTich",
+                        caption: "DT",
+                        width: 50
+                    },
+                    {
+                        dataField: "VIEW",
+                        caption: "Views",
+                        width: 100
+                    },
+                    {
+                        dataField: "HuongCua",
+                        caption: "Hướng cửa",
+                        width: 50
+                    },
+                    {
+                        dataField: "HuongBanCong",
+                        caption: "Hướng BC",
+                        width: 50
+                    },
+                    {
+                        dataField: "MatKhauCua",
+                        caption: "Mật khẩu",
+                        width: 50
+                    },
+                    {
+                        dataField: "GiaHopDong",
+                        caption: "Giá hợp đồng",
+                        width: 80
+                    },
+                    {
+                        dataField: "GiaChuNhaGui",
+                        caption: "Giá chủ nhà gửi",
+                        width: 80
+                    },
+                    {
+                        dataField: "GiaChotBan",
+                        caption: "Giá chốt bán",
+                        width: 80
+                    },
+                    {
+                        dataField: "GiaChaoBan",
+                        caption: "Giá bán",
+                    },
+                    {
+                        dataField: "GiaThueNet",
+                        caption: "Giá thuê Net",
+                        width: 80
+                    },
+                    {
+                        dataField: "GiaThueBaoPhi",
+                        caption: "Giá thuê bao phí",
+                        width: 80
+                    },
+                    //{
+                    //    dataField: "GhiChuAdmin",
+                    //    caption: "Ghi chú Admin",
+                    //},
+                    {
+                        dataField: "GhiChuQuanLy",
+                        caption: "Ghi chú quản ký",
+                        width: 200
+                    },
+                    {
+                        dataField: "GhiChuSales",
+                        caption: "Ghi chú sales",
+                        width: 200
+                    },
+
+                    {
+                        dataField: "ThongTinChuNha",
+                        caption: "Thông tin chủ nhà",
+                        width: 100
+                    }
+                ],
+
+                onRowPrepared: function (e) {
+
+                    if (e.rowType == 'data' && e.data.TinhTrang == "Cho thuê") {
+                        e.rowElement.css('background-color', '#FFFF99')
+                    }
+                    else if (e.rowType == 'data' && e.data.TinhTrang == "Đã cho thuê (Sắp hết hợp đồng)") {
+                        e.rowElement.css('background-color', '#a9d08f')
+                    }
+                    else if (e.rowType == 'data' && e.data.TinhTrang == "Bán - Sắp hết hợp đồng thuê") {
+                        e.rowElement.css('background-color', '#a9d08f')
+                    }
+                    else if (e.rowType == 'data' && e.data.TinhTrang == "Bán") {
+                        e.rowElement.css('background-color', '#f4b084')
+                    }
+                    else if (e.rowType == 'data' && e.data.TinhTrang == "Bán - Cho thuê") {
+                        e.rowElement.css('background-color', '#f4b084')
+                    }
+                    else {
+                        e.rowElement.css('background-color', '#FFFFFF')
+                        e.rowElement.css
+                    }
+                },
+            });
+
+        }
+        function Fileter(key, value) {
+            var grid = $("#list_danh_sach").dxDataGrid("instance");
+            if (value != null && value != "") {
+                //let filter = "";
+                //for (var i = 0; i < value.length; i++) {
+                //    filter = filter + '"'+value[i]+'",'
+                //}
+                //filter = filter.substring(0, filter.length - 1);
+                grid.columnOption(key, {
+                    headerFilter: "include",
+                    filterValues: value
+                });
+            }
+            else {
+                grid.columnOption(key, {
+                    headerFilter: "include",
+                    filterValues: undefined
+                });
+            }
+
+        }
+        function Fileter1(key, value) {
+            var grid = $("#list_danh_sach").dxDataGrid("instance");
+            if (value != null && value != "") {
+
+                grid.columnOption(key, {
+                    headerFilter: "include",
+                    filterValue: value
+                });
+            }
+            else {
+                grid.columnOption(key, {
+                    headerFilter: "include",
+                    filterValue: undefined
+                });
+            }
+
+        }
+        function Search(a) {
+            Fileter1(a.name, $(a).val());
+        }
+        function FilterUser(key, value) {
+            if (value != null && value != "") {
+                let filter = value.join();
+                $("#list_danh_sach").dxDataGrid("instance").columnOption(key, {
+                    selectedFilterOperation: "contains",
+                    filterValue: filter
+                });
+            }
+            else {
+                $("#list_danh_sach").dxDataGrid("instance").columnOption(key, {
+                    selectedFilterOperation: "=",
+                    filterValue: undefined
+                });
+            }
+
+        }
+        function FilterChuNha(chunha) {
+            let value = $(chunha).val();
+            let key = chunha.name
+            if (value != null && value != "") {
+                $("#list_danh_sach").dxDataGrid("instance").columnOption(key, {
+                    selectedFilterOperation: "contains",
+                    filterValue: value
+                });
+            }
+            else {
+                $("#list_danh_sach").dxDataGrid("instance").columnOption(key, {
+                    selectedFilterOperation: "=",
+                    filterValue: undefined
+                });
+            }
+
+        }
+        function Refresh() {
+            var grid = $("#list_danh_sach").dxDataGrid("instance");
+            grid.clearFilter()
+            $("#select-salecman").dxTagBox('instance').option('value', null);
+            $("#select-tinhtrangcanho").dxTagBox('instance').option('value', null);
+            $("#select-loaibangiao").dxTagBox('instance').option('value', null);
+            $("#select-loaicanho").dxTagBox('instance').option('value', null);
+            $("#txt-sophongngu").dxTagBox('instance').option('value', null);
+            $("#select-duan").dxTagBox('instance').option('value', null);
+            $("#select-huongcua").dxTagBox('instance').option('value', null);
+            $("#select-huongbancong").dxTagBox('instance').option('value', null);
+            $("#txt-thap").val(null);
+            $("#txt-tang").val(null);
+            $("#txt-socan").val(null);
+            $("#txt-chunha").val(null);
+            $("#txt-dientich").val(null);
+            $("#txt-giaban").val(null);
+            $("#txt-giathue").val(null);
+            $("#txt-giabanusd").val(null);
+            $("#txt-giathueusd").val(null);
+        }
+        function TimKiemData() {
+            let data = {};
+            data.DienTich = $("#txt-dientich").val();
+            data.GiaBan = $("#txt-giaban").val();
+            data.GiaThue = $("#txt-giathue").val();
+            data.GiaBanUSD = $("#txt-giabanusd").val();
+            data.GiaThueUSD = $("#txt-giathueusd").val();
+            KTApp.blockPage({ overlayColor: '#000000', state: 'primary', message: 'Đang tìm kiếm...' });
+            $.get("@Url.Action("TimCanHoPhanGioHang","CanHo")", data).done(function (rs) {
+                KTApp.unblockPage();
+                LoadCanho(rs);
+            }).fail(function () {
+                KTApp.unblockPage();
+                ShowToast.warning('Có lỗi xảy ra', 3000);
+            });
+        }
+    </script>
+    <script type="text/javascript">
+        $(function () {
+            $("#btn-save").click(function () {
+                var nguoidung = [];
+                var canho = []
+                var checkNguoiDung = $("input[type=checkbox]");
+                checkNguoiDung.each(function () {
+                    if ($(this).is(":checked")) {
+                        nguoidung.push(this.id);
+                    }
+                })
+                $.each($("#list_danh_sach").dxDataGrid('instance').getSelectedRowsData(), function () {
+                    canho.push(this.IDCanHo);
+                });
+                if (nguoidung.length == 0 || canho.length == 0) {
+                    ShowToast.warning('Chưa chọn người dùng hoặc căn hộ', 3000);
+                    return;
+                }
+                var data = {};
+                data.NguoiDung = nguoidung;
+                data.CanHo = canho;
+                data.__RequestVerificationToken = $('input[name="__RequestVerificationToken"]').val();
+                try {
+                    KTApp.blockPage({ overlayColor: '#000000', state: 'primary', message: 'Đang cập nhật...' });
+                     $.post("@Url.Action("PhanGioHangChoSaleSubmit","CanHo")", data).done(function (rs) {
+                         if (rs.rs_code == 1) {
+                             KTApp.unblockPage();
+                             ShowToast.success('Thành công', 3000);
+                         }
+                         else {
+                             KTApp.unblockPage();
+                             Swal.fire("Có lỗi!", rs.rs_text, "error");
+                         }
+                     }).fail(function () {
+                         KTApp.unblockPage();
+                         ShowToast.warning('Có lỗi xảy ra', 3000);
+                     });
+                } catch (e) {
+                    KTApp.unblockPage();
+                }
+            });
+        })
+    </script>
+    <script type="text/javascript">
+        $(function () {
+            $("#btn-xoachidinh").click(function () {
+                var nguoidung = [];
+                var canho = []
+                var checkNguoiDung = $("input[type=checkbox]");
+                checkNguoiDung.each(function () {
+                    if ($(this).is(":checked")) {
+                        nguoidung.push(this.id);
+                    }
+                })
+                //$.each($("#list_danh_sach").dxDataGrid('instance').getSelectedRowKeys(), function () {
+                //    canho.push(this.IDCanHo);
+                //});
+                canho = $("#list_danh_sach").dxDataGrid('instance').getSelectedRowKeys();
+                if (nguoidung.length == 0 || canho.length == 0) {
+                    ShowToast.warning('Chưa chọn người dùng hoặc căn hộ', 3000);
+                    return;
+                }
+                var data = {};
+                data.NguoiDung = nguoidung;
+                data.CanHo = canho;
+                data.__RequestVerificationToken = $('input[name="__RequestVerificationToken"]').val();
+                try {
+                    KTApp.blockPage({ overlayColor: '#000000', state: 'primary', message: 'Đang cập nhật...' });
+                     $.post("@Url.Action("XoaPhanGioHangChoSaleSubmit", "CanHo")", data).done(function (rs) {
+                         if (rs.rs_code == 1) {
+                             KTApp.unblockPage();
+                             ShowToast.success('Thành công', 3000);
+                         }
+                         else {
+                             KTApp.unblockPage();
+                             Swal.fire("Có lỗi!", rs.rs_text, "error");
+                         }
+                     }).fail(function () {
+                         KTApp.unblockPage();
+                         ShowToast.warning('Có lỗi xảy ra', 3000);
+                     });
+                } catch (e) {
+                    KTApp.unblockPage();
+                }
+            });
+        })
+    </script>
+}

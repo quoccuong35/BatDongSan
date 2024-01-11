@@ -1,0 +1,141 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Đăng nhập - @Resources.App.TenUngDung</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link href="~/Content/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/css/style.bundle.css" rel="stylesheet" type="text/css" />
+    <link rel="shortcut icon" href="~/Content/upload/images/logo.png" />
+    @Styles.Render("~/Content/css/site")
+</head>
+<body id="kt_body" class="header-fixed header-mobile-fixed subheader-enabled aside-enabled aside-static page-loading">
+    @Html.AntiForgeryToken()
+    <div class="d-flex flex-column flex-root">
+        <!--begin::Login-->
+        <div class="login login-2 login-signin-on d-flex flex-column flex-column-fluid bg-white position-relative overflow-hidden" id="kt_login">
+            <!--begin::Header-->
+            <div class="login-header py-10 flex-column-auto">
+                <div class="container d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-md-between">
+
+                    <a href="/login" class="flex-column-auto py-5 py-md-0">
+                        <img src="~/Content/upload/images/logo.png" alt="logo" class="h-50px" />
+                    </a>
+
+                    <span class="text-muted font-weight-bold font-size-h4">
+                        Cần thông tin BĐS?
+                        <a href="https://tech1.top/" target="_blank" class="text-primary font-weight-bolder">DanhLand.com</a>
+                    </span>
+                </div>
+            </div>
+
+            <div class="login-body d-flex flex-column-fluid align-items-stretch justify-content-center">
+                <div class="container row">
+                    <div class="col-lg-6 d-flex align-items-center">
+
+                        <div class="login-form login-signin">
+
+                            <form class="form w-xxl-550px rounded-lg p-20" novalidate="novalidate" id="kt_login_signin_form">
+
+                                <div class="pb-13 pt-lg-0 pt-5">
+                                    <h3 class="font-weight-bolder text-primary font-size-h4 font-size-h1-lg"> @Resources.App.TenUngDung</h3>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="font-size-h6 font-weight-bolder text-dark">Tài khoản</label>
+                                    <input id="username" class="form-control form-control-solid h-auto p-6 rounded-lg" type="text" name="username" autocomplete="off" />
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="d-flex justify-content-between mt-n5">
+                                        <label class="font-size-h6 font-weight-bolder text-dark pt-5">Mật khẩu</label>
+                                        @*<a href="javascript:;" class="text-primary font-size-h6 font-weight-bolder text-hover-primary pt-5" id="kt_login_forgot">Quên mật khẩu ?</a>*@
+                                    </div>
+                                    <input id="password" class="form-control form-control-solid h-auto p-6 rounded-lg" type="password" name="password" autocomplete="off" />
+                                </div>
+                                <fieldset id="iAlert" class="hide">
+                                    <div class="alert alert-custom alert-notice alert-light-warning fade show mb-5" role="alert">
+                                        <div class="alert-icon">
+                                            <i class="flaticon-warning"></i>
+                                        </div>
+                                        <div class="alert-text error_message"></div>
+
+                                    </div>
+                                </fieldset>
+
+                                <div class="pb-lg-0 pb-5">
+
+                                    <div class="btn btn-primary font-weight-bolder btn-block my-3 font-size-lg" id="btnlogin">
+                                        <span class="svg-icon svg-icon-white svg-icon-2x">
+                                            Đăng nhập   <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                    <rect x="0" y="0" width="24" height="24" />
+                                                    <rect fill="#000000" opacity="0.3" transform="translate(9.000000, 12.000000) rotate(-270.000000) translate(-9.000000, -12.000000) " x="8" y="6" width="2" height="12" rx="1" />
+                                                    <path d="M20,7.00607258 C19.4477153,7.00607258 19,6.55855153 19,6.00650634 C19,5.45446114 19.4477153,5.00694009 20,5.00694009 L21,5.00694009 C23.209139,5.00694009 25,6.7970243 25,9.00520507 L25,15.001735 C25,17.2099158 23.209139,19 21,19 L9,19 C6.790861,19 5,17.2099158 5,15.001735 L5,8.99826498 C5,6.7900842 6.790861,5 9,5 L10.0000048,5 C10.5522896,5 11.0000048,5.44752105 11.0000048,5.99956624 C11.0000048,6.55161144 10.5522896,6.99913249 10.0000048,6.99913249 L9,6.99913249 C7.8954305,6.99913249 7,7.89417459 7,8.99826498 L7,15.001735 C7,16.1058254 7.8954305,17.0008675 9,17.0008675 L21,17.0008675 C22.1045695,17.0008675 23,16.1058254 23,15.001735 L23,9.00520507 C23,7.90111468 22.1045695,7.00607258 21,7.00607258 L20,7.00607258 Z" fill="#000000" fill-rule="nonzero" opacity="0.3" transform="translate(15.000000, 12.000000) rotate(-90.000000) translate(-15.000000, -12.000000) " />
+                                                    <path d="M16.7928932,9.79289322 C17.1834175,9.40236893 17.8165825,9.40236893 18.2071068,9.79289322 C18.5976311,10.1834175 18.5976311,10.8165825 18.2071068,11.2071068 L15.2071068,14.2071068 C14.8165825,14.5976311 14.1834175,14.5976311 13.7928932,14.2071068 L10.7928932,11.2071068 C10.4023689,10.8165825 10.4023689,10.1834175 10.7928932,9.79289322 C11.1834175,9.40236893 11.8165825,9.40236893 12.2071068,9.79289322 L14.5,12.0857864 L16.7928932,9.79289322 Z" fill="#000000" fill-rule="nonzero" transform="translate(14.500000, 12.000000) rotate(-90.000000) translate(-14.500000, -12.000000) " />
+                                                </g>
+                                            </svg>
+                                        </span>
+                                    </div>
+                                </div>
+                                <!--end::Action-->
+                            </form>
+                            <!--end::Form-->
+                        </div>
+                        <!--end::Signin-->
+                        <!--begin::Forgot-->
+                        <div class="login-form login-forgot">
+                            <!--begin::Form-->
+                            <form class="form w-xxl-550px rounded-lg p-20" novalidate="novalidate" id="kt_login_forgot_form">
+                                <!--begin::Title-->
+                                <div class="pb-13 pt-lg-0 pt-5">
+                                    <h3 class="font-weight-bolder text-dark font-size-h4 font-size-h1-lg">Forgotten Password ?</h3>
+                                    <p class="text-muted font-weight-bold font-size-h4">Enter your email to reset your password</p>
+                                </div>
+                                <!--end::Title-->
+                                <!--begin::Form group-->
+                                <div class="form-group">
+                                    <input class="form-control form-control-solid h-auto p-6 rounded-lg font-size-h6" type="email" placeholder="Email" name="email" autocomplete="off" />
+                                </div>
+                                <!--end::Form group-->
+                                <!--begin::Form group-->
+                                <div class="form-group d-flex flex-wrap pb-lg-0">
+                                    <button type="button" id="kt_login_forgot_submit" class="btn btn-primary font-weight-bolder font-size-h6 px-8 py-4 my-3 mr-4">Submit</button>
+                                    <button type="button" id="kt_login_forgot_cancel" class="btn btn-light-primary font-weight-bolder font-size-h6 px-8 py-4 my-3">Cancel</button>
+                                </div>
+                                <!--end::Form group-->
+                            </form>
+                            <!--end::Form-->
+                        </div>
+                        <!--end::Forgot-->
+                    </div>
+                    <div class="col-lg-6 bgi-size-contain bgi-no-repeat bgi-position-y-center bgi-position-x-center min-h-150px mt-10 m-md-0" style="background-image: url(https://preview.keenthemes.com/keen/theme/demo6/dist/assets/media/svg/illustrations/accomplishment.svg)"></div>
+                </div>
+            </div>
+            <!--end::Body-->
+            <div class="login-footer py-10 flex-column-auto">
+                <div class="container d-flex flex-column flex-md-row align-items-center justify-content-between">
+
+                    <div class="text-dark order-2 order-md-1">
+                        <span class="text-muted font-weight-bold mr-2">2020©</span>
+                        <a href="https://danhland.com/" target="_blank" class="text-dark-75 text-primary">@Resources.App.TenDonVi</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!--end::Login-->
+    </div>
+    <script>var KTAppSettings = { "breakpoints": { "sm": 576, "md": 768, "lg": 992, "xl": 1200, "xxl": 1200 }, "colors": { "theme": { "base": { "white": "#ffffff", "primary": "#7c2f2e", "secondary": "#E5EAEE", "success": "#1BC5BD", "info": "#8950FC", "warning": "#FFA800", "danger": "#F64E60", "light": "#F3F6F9", "dark": "#212121" }, "light": { "white": "#ffffff", "primary": "#D7F9EF", "secondary": "#ECF0F3", "success": "#C9F7F5", "info": "#EEE5FF", "warning": "#FFF4DE", "danger": "#FFE2E5", "light": "#F3F6F9", "dark": "#D6D6E0" }, "inverse": { "white": "#ffffff", "primary": "#ffffff", "secondary": "#212121", "success": "#ffffff", "info": "#ffffff", "warning": "#ffffff", "danger": "#ffffff", "light": "#464E5F", "dark": "#ffffff" } }, "gray": { "gray-100": "#F3F6F9", "gray-200": "#ECF0F3", "gray-300": "#E5EAEE", "gray-400": "#D6D6E0", "gray-500": "#B5B5C3", "gray-600": "#80808F", "gray-700": "#464E5F", "gray-800": "#1B283F", "gray-900": "#212121" } }, "font-family": "Poppins" };</script>
+
+
+    @Scripts.Render("~/js/login")
+</body>
+</html>

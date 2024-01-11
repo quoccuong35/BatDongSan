@@ -1,0 +1,146 @@
+﻿@{
+    Layout = null;
+    int count = Model.Images.Count;
+}
+<style>
+    .title {
+        font-size: 38px;
+        font-weight: 700;
+        color: #7c2f2e;
+    }
+
+    .meta-desc {
+        font-size: 22px;
+        color: #333;
+    }
+
+    .images {
+        width: 100%;
+        text-align: center;
+    }
+    /* The Modal (background) */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        padding-top: 100px; /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+    }
+
+    /* Modal Content (image) */
+    .modal-content {
+        margin: auto;
+        display: block;
+        width: 80%;
+        max-width: 700px;
+    }
+
+    .child {
+        width: 180px;
+        height: 80px;
+        /*margin-right: 30px;*/
+        /*padding: 25px;*/
+        box-sizing: border-box;
+        background: #3b3b3b;
+        display: inline-block;
+    }
+    /* The Close Button */
+    .thoat {
+        position: absolute;
+        top: 80px;
+        right: 100px;
+        color: #f1f1f1;
+        font-size: 40px;
+        font-weight: bold;
+        transition: 0.3s;
+    }
+
+    .thoat:hover,
+    .thoat:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+    }
+    .left {
+        position: absolute;
+        top: 40%;
+        left: 10%;
+        color: #f1f1f1;
+        font-size: 40px;
+        font-weight: bold;
+        transition: 0.3s;
+    }
+    .right {
+        position: absolute;
+        top: 40%;
+        right: 10%;
+        color: #f1f1f1;
+        font-size: 40px;
+        font-weight: bold;
+        transition: 0.3s;
+    }
+</style>
+<div>
+    <center>
+        <div class="title">@Model.CanHo.LoaiCanHo - @Model.CanHo.DuAn</div>
+        <div class="meta-desc">Hướng cửa:@Model.CanHo.HuongCua - Hướng Ban Công: @Model.CanHo.HuongBanCong - View: @Model.CanHo.VIEW</div>
+        <div class="meta-desc">Bàn giao:@Model.CanHo.LoaiBanGiao</div>
+    </center>
+    <div class="images">
+        @{
+            int j = 1;
+            foreach (var item in Model.Images)
+            {
+                <img src="@ViewBag.Url@item.Url" class="child" id="image_@j" style="width:20%;height:20%" onclick="ShowImage(this)">
+                j++;
+            }
+        }
+    </div>
+</div>
+<div id="myModal" class="modal">
+    <a class="left" onclick="Down()">&#10094;</a>
+    <span class="thoat">&times;</span>
+    <img class="modal-content" id="img01">
+    <a class="right" onclick="Up()">&#10095;</a>
+</div>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+    var modal = document.getElementById("myModal");
+    var modalImg = document.getElementById("img01");
+    var stt = 0;
+    function ShowImage(a) {
+        var url = $(a).attr("src");
+        modal.style.display = "block";
+        modalImg.src = url;
+        stt = Number(a.id.replace("image_", ""));
+    }
+    var span = document.getElementsByClassName("thoat")[0];
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+    function Down() {
+        if (stt == 1)
+            stt = Number("@count");
+        else
+            stt = stt - 1;
+        var img = document.getElementById("image_" + stt);
+        modalImg.src = img.src;
+    }
+    function Up() {
+        if (stt == Number("@count"))
+            stt = 1;
+        else
+            stt = stt + 1;
+        var img = document.getElementById("image_" + stt);
+        modalImg.src = img.src;
+    }
+    /// 
+</script>

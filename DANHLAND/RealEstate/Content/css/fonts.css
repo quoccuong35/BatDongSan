@@ -1,0 +1,133 @@
+﻿/* inter-200 - vietnamese_latin */
+@font-face {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 200;
+    src: url('../fonts/inter-v2-vietnamese_latin-200.eot'); /* IE9 Compat Modes */
+    src: local(''), url('../fonts/inter-v2-vietnamese_latin-200.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('../fonts/inter-v2-vietnamese_latin-200.woff2') format('woff2'), /* Super Modern Browsers */
+    url('../fonts/inter-v2-vietnamese_latin-200.woff') format('woff'), /* Modern Browsers */
+    url('../fonts/inter-v2-vietnamese_latin-200.ttf') format('truetype'), /* Safari, Android, iOS */
+    url('../fonts/inter-v2-vietnamese_latin-200.svg#Inter') format('svg'); /* Legacy iOS */
+}
+
+/* inter-300 - vietnamese_latin */
+@font-face {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 300;
+    src: url('../fonts/inter-v2-vietnamese_latin-300.eot'); /* IE9 Compat Modes */
+    src: local(''), url('../fonts/inter-v2-vietnamese_latin-300.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('../fonts/inter-v2-vietnamese_latin-300.woff2') format('woff2'), /* Super Modern Browsers */
+    url('../fonts/inter-v2-vietnamese_latin-300.woff') format('woff'), /* Modern Browsers */
+    url('../fonts/inter-v2-vietnamese_latin-300.ttf') format('truetype'), /* Safari, Android, iOS */
+    url('../fonts/inter-v2-vietnamese_latin-300.svg#Inter') format('svg'); /* Legacy iOS */
+}
+
+/* inter-regular - vietnamese_latin */
+@font-face {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../fonts/inter-v2-vietnamese_latin-regular.eot'); /* IE9 Compat Modes */
+    src: local(''), url('../fonts/inter-v2-vietnamese_latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('../fonts/inter-v2-vietnamese_latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+    url('../fonts/inter-v2-vietnamese_latin-regular.woff') format('woff'), /* Modern Browsers */
+    url('../fonts/inter-v2-vietnamese_latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+    url('../fonts/inter-v2-vietnamese_latin-regular.svg#Inter') format('svg'); /* Legacy iOS */
+}
+
+/* inter-500 - vietnamese_latin */
+@font-face {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 500;
+    src: url('../fonts/inter-v2-vietnamese_latin-500.eot'); /* IE9 Compat Modes */
+    src: local(''), url('../fonts/inter-v2-vietnamese_latin-500.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('../fonts/inter-v2-vietnamese_latin-500.woff2') format('woff2'), /* Super Modern Browsers */
+    url('../fonts/inter-v2-vietnamese_latin-500.woff') format('woff'), /* Modern Browsers */
+    url('../fonts/inter-v2-vietnamese_latin-500.ttf') format('truetype'), /* Safari, Android, iOS */
+    url('../fonts/inter-v2-vietnamese_latin-500.svg#Inter') format('svg'); /* Legacy iOS */
+}
+
+/* inter-600 - vietnamese_latin */
+@font-face {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 600;
+    src: url('../fonts/inter-v2-vietnamese_latin-600.eot'); /* IE9 Compat Modes */
+    src: local(''), url('../fonts/inter-v2-vietnamese_latin-600.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('../fonts/inter-v2-vietnamese_latin-600.woff2') format('woff2'), /* Super Modern Browsers */
+    url('../fonts/inter-v2-vietnamese_latin-600.woff') format('woff'), /* Modern Browsers */
+    url('../fonts/inter-v2-vietnamese_latin-600.ttf') format('truetype'), /* Safari, Android, iOS */
+    url('../fonts/inter-v2-vietnamese_latin-600.svg#Inter') format('svg'); /* Legacy iOS */
+}
+
+/* inter-700 - vietnamese_latin */
+@font-face {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 700;
+    src: url('../fonts/inter-v2-vietnamese_latin-700.eot'); /* IE9 Compat Modes */
+    src: local(''), url('../fonts/inter-v2-vietnamese_latin-700.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('../fonts/inter-v2-vietnamese_latin-700.woff2') format('woff2'), /* Super Modern Browsers */
+    url('../fonts/inter-v2-vietnamese_latin-700.woff') format('woff'), /* Modern Browsers */
+    url('../fonts/inter-v2-vietnamese_latin-700.ttf') format('truetype'), /* Safari, Android, iOS */
+    url('../fonts/inter-v2-vietnamese_latin-700.svg#Inter') format('svg'); /* Legacy iOS */
+}
+
+/* inter-800 - vietnamese_latin */
+@font-face {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 800;
+    src: url('../fonts/inter-v2-vietnamese_latin-800.eot'); /* IE9 Compat Modes */
+    src: local(''), url('../fonts/inter-v2-vietnamese_latin-800.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('../fonts/inter-v2-vietnamese_latin-800.woff2') format('woff2'), /* Super Modern Browsers */
+    url('../fonts/inter-v2-vietnamese_latin-800.woff') format('woff'), /* Modern Browsers */
+    url('../fonts/inter-v2-vietnamese_latin-800.ttf') format('truetype'), /* Safari, Android, iOS */
+    url('../fonts/inter-v2-vietnamese_latin-800.svg#Inter') format('svg'); /* Legacy iOS */
+}
+
+/* inter-900 - vietnamese_latin */
+@font-face {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 900;
+    src: url('../fonts/inter-v2-vietnamese_latin-900.eot'); /* IE9 Compat Modes */
+    src: local(''), url('../fonts/inter-v2-vietnamese_latin-900.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('../fonts/inter-v2-vietnamese_latin-900.woff2') format('woff2'), /* Super Modern Browsers */
+    url('../fonts/inter-v2-vietnamese_latin-900.woff') format('woff'), /* Modern Browsers */
+    url('../fonts/inter-v2-vietnamese_latin-900.ttf') format('truetype'), /* Safari, Android, iOS */
+    url('../fonts/inter-v2-vietnamese_latin-900.svg#Inter') format('svg'); /* Legacy iOS */
+}
+@font-face {
+    font-family: SegoeUI;
+    src: local("Segoe UI Light"), url(//c.s-microsoft.com/static/fonts/segoe-ui/west-european/light/latest.woff2) format("woff2"), url(//c.s-microsoft.com/static/fonts/segoe-ui/west-european/light/latest.woff) format("woff"), url(//c.s-microsoft.com/static/fonts/segoe-ui/west-european/light/latest.ttf) format("truetype");
+    font-weight: 100;
+}
+
+@font-face {
+    font-family: SegoeUI;
+    src: local("Segoe UI Semilight"), url(//c.s-microsoft.com/static/fonts/segoe-ui/west-european/semilight/latest.woff2) format("woff2"), url(//c.s-microsoft.com/static/fonts/segoe-ui/west-european/semilight/latest.woff) format("woff"), url(//c.s-microsoft.com/static/fonts/segoe-ui/west-european/semilight/latest.ttf) format("truetype");
+    font-weight: 200;
+}
+
+@font-face {
+    font-family: SegoeUI;
+    src: local("Segoe UI"), url(//c.s-microsoft.com/static/fonts/segoe-ui/west-european/normal/latest.woff2) format("woff2"), url(//c.s-microsoft.com/static/fonts/segoe-ui/west-european/normal/latest.woff) format("woff"), url(//c.s-microsoft.com/static/fonts/segoe-ui/west-european/normal/latest.ttf) format("truetype");
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: SegoeUI;
+    src: local("Segoe UI Bold"), url(//c.s-microsoft.com/static/fonts/segoe-ui/west-european/bold/latest.woff2) format("woff2"), url(//c.s-microsoft.com/static/fonts/segoe-ui/west-european/bold/latest.woff) format("woff"), url(//c.s-microsoft.com/static/fonts/segoe-ui/west-european/bold/latest.ttf) format("truetype");
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: SegoeUI;
+    src: local("Segoe UI Semibold"), url(//c.s-microsoft.com/static/fonts/segoe-ui/west-european/semibold/latest.woff2) format("woff2"), url(//c.s-microsoft.com/static/fonts/segoe-ui/west-european/semibold/latest.woff) format("woff"), url(//c.s-microsoft.com/static/fonts/segoe-ui/west-european/semibold/latest.ttf) format("truetype");
+    font-weight: 700;
+}
+

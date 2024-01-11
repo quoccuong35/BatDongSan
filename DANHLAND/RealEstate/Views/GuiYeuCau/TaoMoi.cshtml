@@ -1,0 +1,401 @@
+﻿
+@{
+    ViewBag.Title = Resources.App.YeuCau_TaoMoi;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int NguoiDung = (int)RealEstate.Libs.Users.GetNguoiDung(User.Identity.Name).NguoiDung;
+}
+
+@section Header{
+
+    <div class="d-flex align-items-center flex-wrap mr-1">
+
+        <button class="btn btn-icon mr-4" id="kt_aside_toggle">
+            <span class="svg-icon svg-icon-xl">
+
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <rect x="0" y="0" width="24" height="24" />
+                        <path d="M2 11.5C2 12.3284 2.67157 13 3.5 13H20.5C21.3284 13 22 12.3284 22 11.5V11.5C22 10.6716 21.3284 10 20.5 10H3.5C2.67157 10 2 10.6716 2 11.5V11.5Z" fill="black" />
+                        <path opacity="0.5" fill-rule="evenodd" clip-rule="evenodd" d="M9.5 20C8.67157 20 8 19.3284 8 18.5C8 17.6716 8.67157 17 9.5 17H20.5C21.3284 17 22 17.6716 22 18.5C22 19.3284 21.3284 20 20.5 20H9.5ZM15.5 6C14.6716 6 14 5.32843 14 4.5C14 3.67157 14.6716 3 15.5 3H20.5C21.3284 3 22 3.67157 22 4.5C22 5.32843 21.3284 6 20.5 6H15.5Z" fill="black" />
+                    </g>
+                </svg>
+
+            </span>
+        </button>
+
+        <div class="d-flex align-items-baseline flex-wrap mr-5">
+
+            <h5 class="text-dark font-weight-bold my-1 mr-5">
+                @Resources.App.YeuCau_TaoMoi
+
+            </h5>
+            <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 ">
+                <li class="breadcrumb-item text-muted">
+                    <a href="" class="text-muted">@Resources.App.YeuCau_YeuCau</a>
+                </li>
+                <li class="breadcrumb-item text-muted">
+                    <a href="" class="text-muted"> @Resources.App.YeuCau_QuanLyYeuCau</a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+
+    <div class="d-flex align-items-center">
+        <a href="@Url.Action("Index","GuiYeuCau")" class="btn btn-default font-weight-bold  px-3 font-size-base  mr-2">  @Resources.App.QuayLai</a>
+
+        <div class="btn-group ml-2">
+            <button type="button" class="btn btn-success font-weight-bold btn-sm px-3 font-size-base" id="btn-save" onclick="CapNhat(1)">
+                <i class="fas fa-save"></i>  @Resources.App.CapNhat
+            </button>
+            <button type="button" class="btn btn-success font-weight-bold btn-sm px-3 font-size-base dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+            <div class="dropdown-menu dropdown-menu-sm dropdown-menu-sm-custom p-0 m-0 dropdown-menu-right" wfd-invisible="true" style="">
+                <ul class="navi py-5">
+
+                    <li class="navi-item">
+                        <a href="javascript:void(0)" class="navi-link" id="btn-save-2"  onclick="CapNhat(2)">
+                            <span class="navi-icon">
+                                <i class="flaticon2-medical-records text-success"></i>
+                            </span>
+                            <span class="navi-text">@Resources.App.CapNhat &amp; @Resources.App.ThemMoi</span>
+                        </a>
+                    </li>
+                    <li class="navi-item">
+                        <a href="javascript:void(0)" class="navi-link" id="btn-save-3"  onclick="CapNhat(3)">
+                            <span class="navi-icon">
+                                <i class="flaticon2-hourglass-1 text-danger"></i>
+                            </span>
+                            <span class="navi-text">@Resources.App.CapNhat &amp; @Resources.App.Thoat</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+}
+<div class="card card-custom gutter-b ">
+    <div>
+        <form id="inputform" class="form" data-parsley-validate>
+            <div class="card-body pt-3 mt-3">
+                <h3 class="font-size-lg text-primary font-weight-bold mb-6">1. Thông tin khách hàng:</h3>
+                <div class="mb-2">
+                    <div class="row">
+                        <div class="form-group col-lg-2 mb-2">
+                            <label class="form-label">Số điện thoại <b class="text-danger">*</b></label>
+                            <input type="text" class="form-control" id="txt-so_dien_thoai" placeholder="Nhập số điện thoại" required>
+                        </div>
+                        <div class="form-group col-lg-3 mb-2">
+                            <label class="form-label">Tên khách hàng <b class="text-danger">*</b></label>
+                            <input type="text" class="form-control" id="txt-ten_khach_hang" placeholder="Nhập tên khách hàng" required>
+                        </div>
+                        <div class="form-group col-lg-4 mb-2">
+                            <label class="form-label">Địa chỉ </label>
+                            <input type="text" class="form-control" id="txt-dia_chi" placeholder="Nhập địa chỉ">
+                        </div>
+                        <div class="form-group col-lg-3 mb-2">
+                            <label class="form-label">Nguồn khách </label>
+                            <input type="text" class="form-control" id="txt-nguon_khach" placeholder="Nhập nguồn khách">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-lg-3">
+                            <label class="form-label">Ngành nghề</label>
+                            <input type="text" class="form-control" id="txt-nghe_nghiep" placeholder="Nhập ngành nghề">
+                        </div>
+                        <div class="form-group col-lg-3">
+                            <label class="form-label">Zalo</label>
+                            <input type="text" class="form-control" id="txt-zalo" placeholder="Nhập số Zalo">
+                        </div>
+                        <div class="form-group col-lg-3">
+                            <label class="form-label">Messenger </label>
+                            <input type="text" class="form-control" id="txt-messenger" placeholder="Nhập Messenger">
+                        </div>
+                        <div class="form-group col-lg-3">
+                            <label class="form-label">Mail khách hàng </label>
+                            <input type="text" class="form-control" id="txt-email_khach_hang" placeholder="Nhập email khách hàng">
+                        </div>
+                    </div>
+
+                </div>
+
+                <h3 class="font-size-lg text-primary font-weight-bold mb-3 mt-3">2. Nhu cầu khách hàng:</h3>
+                <div class="row">
+                    <div class="form-group col-lg-3  mb-2">
+                        <label class="form-label">Nhu cầu <b class="text-danger">*</b></label>
+                        <div id="select-loai_nhu_cau">
+
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-6 mb-2">
+                        <label class="form-label">Dự án <b class="text-danger">*</b></label>
+                        <div id="select-du_an">
+
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-3 mb-2">
+                        <label class="form-label">Người phụ trách <b class="text-danger">*</b></label>
+                        <div id="select-nguoi_phu_trach">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-lg-3 mb-2">
+                        <label class="form-label">Diện tích quan tâm</label>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="d-flex align-items-center">
+                                    <div id="txt-dt_quan_tam_tu">
+
+                                    </div>
+                                    <span class="ml-1 mr-1">-</span>
+                                    <div id="txt-dt_quan_tam_den">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-3 mb-2">
+                        <label class="form-label">Giá quan tâm</label>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="d-flex align-items-center">
+                                    <div>
+                                        <input type="text" class="form-control" id="txt-gia_tu" placeholder="Giá từ">
+                                    </div>
+                                    <span class="ml-1 mr-1">-</span>
+                                    <div>
+                                        <input type="text" class="form-control" id="txt-gia_den" placeholder="Đến">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-2 mb-2">
+                        <label class="form-label">Số phòng ngủ</label>
+                        <input type="text" class="form-control" id="txt-so_phong_ngu" placeholder="Nhập số phòng ngủ">
+                    </div>
+                    <div class="form-group col-lg-2 mb-2">
+                        <label class="form-label">Hướng ban công</label>
+                        <div id="select-huong_ban_cong">
+
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-2 mb-2">
+                        <label class="form-label">Hướng cửa</label>
+                        <div id="select-huong_cua">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-lg-3 mb-2">
+                        <label class="form-label">Tầng quan tâm</label>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="d-flex align-items-center">
+                                    <div>
+                                        <input type="text" class="form-control" id="txt-tang_thap_nhat" placeholder="Tầng thấp nhất">
+                                    </div>
+                                    <span class="ml-1 mr-1">-</span>
+                                    <div>
+                                        <input type="text" class="form-control" id="txt-tang_cao_nhat" placeholder="Tầng cao nhất">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-3 mb-2">
+                        <label class="form-label">Views </label>
+                        <input type="text" class="form-control" id="txt-views" placeholder="views" maxlength="150">
+                    </div>
+                    <div class="form-group col-lg-6 mb-2">
+                        <label class="form-label">Tiện ích bổ sung </label>
+                        <input type="text" class="form-control" id="txt-tien_ich_bo_sung" placeholder="Tiện ích bổ sung" maxlength="150">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-lg-12 mb-0">
+                        <label class="form-label">Ghi chú</label>
+                        <textarea class="form-control" id="txt-ghi_chu" placeholder="Nhập ghi chú yêu cầu"></textarea>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+@section ScriptsFile{
+
+    <script src="~/Scripts/parsley.min.js"></script>
+}
+@section CustomScripts{
+    <script type="text/javascript">
+        var id = 0;
+       
+        var dataLoaiNhuCau =@Html.Raw(RealEstate.Libs.ThongTin.GetLoaiNhuCau()), dataDuAn =@Html.Raw(RealEstate.Libs.ThongTin.GetDuAn()),
+            dataPhuTrach=@Html.Raw(RealEstate.Libs.ThongTin.GetNguoiDung()),dataHuong =@Html.Raw(RealEstate.Libs.ThongTin.GetDanhMucString("huong"));
+        $(function () {
+           
+            $("#txt-dt_quan_tam_tu").dxNumberBox({
+                showSpinButtons: false,
+                showClearButton: false,
+
+                min: 0
+            });
+            $("#txt-dt_quan_tam_den").dxNumberBox({
+                showSpinButtons: false,
+                showClearButton: false,
+
+                min: 0
+            });
+            khoitaoNhuCau();
+            khoitaoDuAn();
+            khoiTaoNguoiPhuTrach();
+            khoitaoHuong();
+            $('#iUpdate').click(
+                function () {
+                    CapNhat();
+                });
+        });
+        
+        function khoitaoNhuCau() {
+            $('#select-loai_nhu_cau').dxTagBox({
+                dataSource: dataLoaiNhuCau,
+                displayExpr: 'ten_loai_nhu_cau',
+                valueExpr: 'loai_nhu_cau',
+                placeholder: "Chọn loại nhu cầu...",
+                showClearButton: false,
+                searchEnabled: true,
+            }).dxValidator({ validationRules: [{ type: "required", message: "Bạn cần chọn loại nhu cầu!" }] });
+        }
+        function khoitaoDuAn() {
+            $('#select-du_an').dxTagBox({
+                dataSource: dataDuAn,
+                displayExpr: 'ten_duan',
+                valueExpr: 'duan',
+                placeholder: "Chọn dự án...",
+                showClearButton: false,
+                searchEnabled: true,
+            }).dxValidator({ validationRules: [{ type: "required", message: "Bạn cần chọn dự án!" }] })
+        }
+        function khoiTaoNguoiPhuTrach() {
+            $('#select-nguoi_phu_trach').dxSelectBox({
+                dataSource: dataPhuTrach,
+                displayExpr: 'Ten',
+                valueExpr: 'NguoiDung',
+                placeholder: "Chọn người phụ trách...",
+                showClearButton: false,
+                searchEnabled: true,
+                 value: Number('@NguoiDung')
+            }).dxValidator({ validationRules: [{ type: "required", message: "Bạn cần chọn người phụ trách!" }] })
+        }
+        function khoitaoHuong() {
+            $('#select-huong_cua').dxTagBox({
+                dataSource: dataHuong,
+                valueExpr: "term_taxonomy_id",
+                displayExpr: "name",
+                placeholder: "Chọn hướng cửa...",
+                showClearButton: true,
+                searchEnabled: true,
+            });
+            $('#select-huong_ban_cong').dxTagBox({
+                dataSource: dataHuong,
+                valueExpr: "term_taxonomy_id",
+                displayExpr: "name",
+                placeholder: "Chọn hướng ban công...",
+                showClearButton: true,
+                searchEnabled: true,
+            });
+        }
+        function CapNhat(step) {
+               var validate = true;
+            var data = {};
+            data.id = id;
+            data.so_dien_thoai = $("#txt-so_dien_thoai").val();
+            data.ten_khach_hang = $("#txt-ten_khach_hang").val();
+            data.dia_chi = $("#txt-dia_chi").val();
+            data.zalo = $("#txt-zalo").val();
+            data.email_khach_hang = $("#txt-email_khach_hang").val();
+            data.nguon_khach = $("#txt-nguon_khach").val();
+            data.so_phong_ngu = $("#txt-so_phong_ngu").val();
+            data.messenger = $("#txt-messenger").val();
+            data.nghe_nghiep = $("#txt-nghe_nghiep").val();
+            data.tang_thap_nhat = $("#txt-tang_thap_nhat").val();
+            data.tang_cao_nhat = $("#txt-tang_cao_nhat").val();
+            data.gia_tu = $("#txt-gia_tu").val();
+            data.gia_den = $("#txt-gia_den").val();
+            data.views = $("#txt-views").val();
+            data.tien_ich_bo_sung = $("#txt-tien_ich_bo_sung").val();
+            data.dt_quan_tam_tu = $("#txt-dt_quan_tam_tu").dxNumberBox("instance").option('value');
+            data.dt_quan_tam_den = $("#txt-dt_quan_tam_den").dxNumberBox("instance").option('value');
+            data.ghi_chu = $("#txt-ghi_chu").val();
+            var loai_nhu_cau = $("#select-loai_nhu_cau").dxTagBox("instance").option('value');
+            if (loai_nhu_cau==null||loai_nhu_cau.length == 0) {
+                validate = false;
+                $('#select-loai_nhu_cau').dxValidator('instance').validate();
+            } else {
+                data.loai_nhu_cau = loai_nhu_cau.join();
+            }
+            var du_an = $("#select-du_an").dxTagBox("instance").option('value');
+            if (du_an==null||du_an.length==0) {
+                validate = false;
+                $('#select-du_an').dxValidator('instance').validate();
+            } else {
+                data.du_an = du_an.join();
+            }
+            data.nguoi_phu_trach = $("#select-nguoi_phu_trach").dxSelectBox("instance").option('value');
+
+            if (!data.nguoi_phu_trach) {
+                validate = false;
+                $('#select-nguoi_phu_trach').dxValidator('instance').validate();
+            }
+            var huong_ban_cong = $("#select-huong_ban_cong").dxTagBox("instance").option('value');
+            if (huong_ban_cong) {
+                data.huong_ban_cong = huong_ban_cong.join();
+            }
+            var huong_cua = $("#select-huong_cua").dxTagBox("instance").option('value');
+            if (huong_cua) {
+                data.huong_cua = huong_cua.join();
+            }
+            data.__RequestVerificationToken = $('input[name="__RequestVerificationToken"]').val();
+
+            if ($('#inputform').parsley().validate() && validate) {
+                KTApp.blockPage({
+                    overlayColor: '#000000',
+                    state: 'primary',
+                    message: 'Processing...'
+                });
+                $.post('@Url.Action( "ThemMoiYeuCau", "GuiYeuCau")', data).done(function (rs) {
+                    KTApp.unblockPage();
+                    if (rs.rs_code > 0) {
+                        if (id == 0)
+                            id = rs.rs_code;
+                        Swal.fire("Thành công!", rs.rs_text, "success").then(function (result) {
+                            if (step == 1) {
+                                window.location.href = '@Url.Action( "ChinhSua", "GuiYeuCau")?id=' + id;
+                            } else if (step == 2) {
+                                window.location.href = '@Url.Action( "TaoMoi", "GuiYeuCau")';
+                            } else {
+                                window.location.href = '@Url.Action( "Index", "GuiYeuCau")';
+                            }
+                        });
+                       
+                    } else {
+                        Swal.fire("Có lỗi!", rs.rs_text, "error");
+                    }
+                }).fail(function () {
+                    KTApp.unblockPage();
+                    Swal.fire("Có lỗi!", 'Có lỗi xảy ra', "error");
+                });
+            } else {
+                Swal.fire("Cảnh báo!", 'Bạn cần nhập đủ các trường bắt buộc trước khi lưu', "warning");
+
+            }
+        }
+        
+    </script>
+}

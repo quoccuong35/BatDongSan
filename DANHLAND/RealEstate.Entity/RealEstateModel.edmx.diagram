@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="8327fe902dda4679ba10ac6d47a8587b" Name="Diagram1" ZoomLevel="59" >
+        <EntityTypeShape EntityType="RealEstateModel.dl_canho" Width="1.5" PointX="2.75" PointY="4.75" />
+        <EntityTypeShape EntityType="RealEstateModel.dl_canho_chunha" Width="1.5" PointX="4.75" PointY="4.75" />
+        <EntityTypeShape EntityType="RealEstateModel.dl_canho_ghichu" Width="1.5" PointX="5.75" PointY="0.75" />
+        <EntityTypeShape EntityType="RealEstateModel.dl_canho_images" Width="1.5" PointX="6.75" PointY="6.75" />
+        <EntityTypeShape EntityType="RealEstateModel.dl_canho_lichsugia" Width="1.5" PointX="8.75" PointY="0.75" />
+        <EntityTypeShape EntityType="RealEstateModel.dl_canho_temp" Width="1.5" PointX="8.75" PointY="4.75" />
+        <EntityTypeShape EntityType="RealEstateModel.dl_chudautu" Width="1.5" PointX="4.75" PointY="9.75" />
+        <EntityTypeShape EntityType="RealEstateModel.dl_configs" Width="1.5" PointX="10.75" PointY="0.75" />
+        <EntityTypeShape EntityType="RealEstateModel.dl_dangtin" Width="1.5" PointX="10.75" PointY="3.75" />
+        <EntityTypeShape EntityType="RealEstateModel.dl_dm_chunha" Width="1.5" PointX="12.75" PointY="0.75" />
+        <EntityTypeShape EntityType="RealEstateModel.dl_dm_chunha_chitiet" Width="1.5" PointX="12.75" PointY="4.75" />
+        <EntityTypeShape EntityType="RealEstateModel.dl_dm_loai_nhu_cau" Width="1.5" PointX="12.75" PointY="7.75" />
+        <EntityTypeShape EntityType="RealEstateModel.dl_dm_phuong_xa" Width="1.5" PointX="12.75" PointY="10.75" />
+        <EntityTypeShape EntityType="RealEstateModel.dl_dm_quan_huyen" Width="1.5" PointX="10.75" PointY="13.75" />
+        <EntityTypeShape EntityType="RealEstateModel.dl_dm_tinh_thanh_pho" Width="1.5" PointX="12.75" PointY="13.75" />
+        <EntityTypeShape EntityType="RealEstateModel.dl_dm_tinhtrang_duan" Width="1.5" PointX="14.75" PointY="0.75" />
+        <EntityTypeShape EntityType="RealEstateModel.dl_dm_tinhtrangcanho" Width="1.5" PointX="14.75" PointY="3.75" />
+        <EntityTypeShape EntityType="RealEstateModel.dl_dm_trangthai_yeucau" Width="1.5" PointX="4.75" PointY="14.75" />
+        <EntityTypeShape EntityType="RealEstateModel.dl_duan" Width="1.5" PointX="14.75" PointY="6.75" />
+        <EntityTypeShape EntityType="RealEstateModel.dl_historys" Width="1.5" PointX="6.75" PointY="14.75" />
+        <EntityTypeShape EntityType="RealEstateModel.dl_loaiduan" Width="1.5" PointX="14.75" PointY="13.75" />
+        <EntityTypeShape EntityType="RealEstateModel.dl_loaithongbao" Width="1.5" PointX="16.75" PointY="0.75" />
+        <EntityTypeShape EntityType="RealEstateModel.dl_nguoidung_phanquyen_nhomnguoidung" Width="1.5" PointX="0.75" PointY="16.75" />
+        <EntityTypeShape EntityType="RealEstateModel.dl_nguoidung_tinhtrang" Width="1.5" PointX="16.75" PointY="3.75" />
+        <EntityTypeShape EntityType="RealEstateModel.dl_nhom_nguoi_dung" Width="1.5" PointX="16.75" PointY="6.75" />
+        <EntityTypeShape EntityType="RealEstateModel.dl_nhom_nguoi_dung_level" Width="1.5" PointX="8.75" PointY="16.75" />
+        <EntityTypeShape EntityType="RealEstateModel.dl_nhomquyen" Width="1.5" PointX="16.75" PointY="10.75" />
+        <EntityTypeShape EntityType="RealEstateModel.dl_phan_quyen" Width="1.5" PointX="10.75" PointY="16.75" />
+        <EntityTypeShape EntityType="RealEstateModel.dl_quyen" Width="1.5" PointX="16.75" PointY="13.75" />
+        <EntityTypeShape EntityType="RealEstateModel.dl_thongbao" Width="1.5" PointX="16.75" PointY="16.75" />
+        <EntityTypeShape EntityType="RealEstateModel.dl_thongbao_nguoidung" Width="1.5" PointX="2.75" PointY="17.75" />
+        <EntityTypeShape EntityType="RealEstateModel.dl_thongbao_phanquyen" Width="1.5" PointX="12.75" PointY="17.75" />
+        <EntityTypeShape EntityType="RealEstateModel.dl_yeucau" Width="1.5" PointX="18.75" PointY="0.75" />
+        <EntityTypeShape EntityType="RealEstateModel.dl_yeucau_canho" Width="1.5" PointX="4.75" PointY="18.75" />
+        <EntityTypeShape EntityType="RealEstateModel.dl_yeucau_nhucau" Width="1.5" PointX="18.75" PointY="8.75" />
+        <EntityTypeShape EntityType="RealEstateModel.dl_yeucau_trangthai" Width="1.5" PointX="18.75" PointY="11.75" />
+        <EntityTypeShape EntityType="RealEstateModel.wp_actionscheduler_actions" Width="1.5" PointX="18.75" PointY="15.75" />
+        <EntityTypeShape EntityType="RealEstateModel.wp_actionscheduler_claims" Width="1.5" PointX="6.75" PointY="19.75" />
+        <EntityTypeShape EntityType="RealEstateModel.wp_actionscheduler_groups" Width="1.5" PointX="8.75" PointY="19.75" />
+        <EntityTypeShape EntityType="RealEstateModel.wp_actionscheduler_logs" Width="1.5" PointX="14.75" PointY="19.75" />
+        <EntityTypeShape EntityType="RealEstateModel.wp_blc_filters" Width="1.5" PointX="20.75" PointY="0.75" />
+        <EntityTypeShape EntityType="RealEstateModel.wp_blc_instances" Width="1.5" PointX="20.75" PointY="3.75" />
+        <EntityTypeShape EntityType="RealEstateModel.wp_blc_links" Width="1.5" PointX="20.75" PointY="7.75" />
+        <EntityTypeShape EntityType="RealEstateModel.wp_blc_synch" Width="1.5" PointX="10.75" PointY="20.75" />
+        <EntityTypeShape EntityType="RealEstateModel.wp_commentmeta" Width="1.5" PointX="20.75" PointY="13.75" />
+        <EntityTypeShape EntityType="RealEstateModel.wp_comments" Width="1.5" PointX="20.75" PointY="16.75" />
+        <EntityTypeShape EntityType="RealEstateModel.wp_links" Width="1.5" PointX="16.75" PointY="20.75" />
+        <EntityTypeShape EntityType="RealEstateModel.wp_myhome_attributes" Width="1.5" PointX="0.75" PointY="21.75" />
+        <EntityTypeShape EntityType="RealEstateModel.wp_myhome_locations" Width="1.5" PointX="18.75" PointY="21.75" />
+        <EntityTypeShape EntityType="RealEstateModel.wp_options" Width="1.5" PointX="20.75" PointY="21.75" />
+        <EntityTypeShape EntityType="RealEstateModel.wp_postmeta" Width="1.5" PointX="22.75" PointY="0.75" />
+        <EntityTypeShape EntityType="RealEstateModel.wp_posts" Width="1.5" PointX="22.75" PointY="3.75" />
+        <EntityTypeShape EntityType="RealEstateModel.wp_rank_math_404_logs" Width="1.5" PointX="6.75" PointY="22.75" />
+        <EntityTypeShape EntityType="RealEstateModel.wp_rank_math_analytics_adsense" Width="1.5" PointX="22.75" PointY="10.75" />
+        <EntityTypeShape EntityType="RealEstateModel.wp_rank_math_analytics_ga" Width="1.5" PointX="12.75" PointY="22.75" />
+        <EntityTypeShape EntityType="RealEstateModel.wp_rank_math_analytics_gsc" Width="1.5" PointX="22.75" PointY="13.75" />
+        <EntityTypeShape EntityType="RealEstateModel.wp_rank_math_analytics_keyword_manager" Width="1.5" PointX="22.75" PointY="17.75" />
+        <EntityTypeShape EntityType="RealEstateModel.wp_rank_math_analytics_object_links" Width="1.5" PointX="22.75" PointY="20.75" />
+        <EntityTypeShape EntityType="RealEstateModel.wp_rank_math_analytics_objects" Width="1.5" PointX="2.75" PointY="23.75" />
+        <EntityTypeShape EntityType="RealEstateModel.wp_rank_math_internal_links" Width="1.5" PointX="8.75" PointY="23.75" />
+        <EntityTypeShape EntityType="RealEstateModel.wp_rank_math_internal_meta" Width="1.5" PointX="22.75" PointY="23.75" />
+        <EntityTypeShape EntityType="RealEstateModel.wp_rank_math_redirections" Width="1.5" PointX="24.75" PointY="0.75" />
+        <EntityTypeShape EntityType="RealEstateModel.wp_rank_math_redirections_cache" Width="1.5" PointX="24.75" PointY="4.75" />
+        <EntityTypeShape EntityType="RealEstateModel.wp_rank_math_sc_analytics" Width="1.5" PointX="24.75" PointY="7.75" />
+        <EntityTypeShape EntityType="RealEstateModel.wp_term_relationships" Width="1.5" PointX="24.75" PointY="11.75" />
+        <EntityTypeShape EntityType="RealEstateModel.wp_term_taxonomy" Width="1.5" PointX="24.75" PointY="14.75" />
+        <EntityTypeShape EntityType="RealEstateModel.wp_termmeta" Width="1.5" PointX="24.75" PointY="17.75" />
+        <EntityTypeShape EntityType="RealEstateModel.wp_terms" Width="1.5" PointX="18.75" PointY="24.75" />
+        <EntityTypeShape EntityType="RealEstateModel.wp_usermeta" Width="1.5" PointX="24.75" PointY="20.75" />
+        <EntityTypeShape EntityType="RealEstateModel.wp_users" Width="1.5" PointX="24.75" PointY="23.75" />
+        <EntityTypeShape EntityType="RealEstateModel.wp_wc_admin_note_actions" Width="1.5" PointX="10.75" PointY="25.75" />
+        <EntityTypeShape EntityType="RealEstateModel.wp_wc_admin_notes" Width="1.5" PointX="12.75" PointY="25.75" />
+        <EntityTypeShape EntityType="RealEstateModel.wp_wc_category_lookup" Width="1.5" PointX="14.75" PointY="25.75" />
+        <EntityTypeShape EntityType="RealEstateModel.wp_wc_customer_lookup" Width="1.5" PointX="26.75" PointY="0.75" />
+        <EntityTypeShape EntityType="RealEstateModel.wp_wc_download_log" Width="1.5" PointX="3" PointY="1.625" />
+        <EntityTypeShape EntityType="RealEstateModel.wp_wc_order_coupon_lookup" Width="1.5" PointX="4.75" PointY="26.75" />
+        <EntityTypeShape EntityType="RealEstateModel.wp_wc_order_product_lookup" Width="1.5" PointX="26.75" PointY="5.75" />
+        <EntityTypeShape EntityType="RealEstateModel.wp_wc_order_stats" Width="1.5" PointX="6.75" PointY="26.75" />
+        <EntityTypeShape EntityType="RealEstateModel.wp_wc_order_tax_lookup" Width="1.5" PointX="26.75" PointY="10.75" />
+        <EntityTypeShape EntityType="RealEstateModel.wp_wc_product_meta_lookup" Width="1.5" PointX="26.75" PointY="13.75" />
+        <EntityTypeShape EntityType="RealEstateModel.wp_wc_reserved_stock" Width="1.5" PointX="26.75" PointY="18.75" />
+        <EntityTypeShape EntityType="RealEstateModel.wp_wc_tax_rate_classes" Width="1.5" PointX="20.75" PointY="26.75" />
+        <EntityTypeShape EntityType="RealEstateModel.wp_wc_webhooks" Width="1.5" PointX="26.75" PointY="21.75" />
+        <EntityTypeShape EntityType="RealEstateModel.wp_woocommerce_api_keys" Width="1.5" PointX="26.75" PointY="26.75" />
+        <EntityTypeShape EntityType="RealEstateModel.wp_woocommerce_attribute_taxonomies" Width="1.5" PointX="16.75" PointY="27.75" />
+        <EntityTypeShape EntityType="RealEstateModel.wp_woocommerce_downloadable_product_permissions" Width="1.5" PointX="0.75" PointY="1" />
+        <EntityTypeShape EntityType="RealEstateModel.wp_woocommerce_log" Width="1.5" PointX="22.75" PointY="27.75" />
+        <EntityTypeShape EntityType="RealEstateModel.wp_woocommerce_order_itemmeta" Width="1.5" PointX="28.75" PointY="0.75" />
+        <EntityTypeShape EntityType="RealEstateModel.wp_woocommerce_order_items" Width="1.5" PointX="28.75" PointY="3.75" />
+        <EntityTypeShape EntityType="RealEstateModel.wp_woocommerce_payment_tokenmeta" Width="1.5" PointX="28.75" PointY="6.75" />
+        <EntityTypeShape EntityType="RealEstateModel.wp_woocommerce_payment_tokens" Width="1.5" PointX="28.75" PointY="9.75" />
+        <EntityTypeShape EntityType="RealEstateModel.wp_woocommerce_sessions" Width="1.5" PointX="28.75" PointY="12.75" />
+        <EntityTypeShape EntityType="RealEstateModel.wp_woocommerce_shipping_zone_locations" Width="1.5" PointX="28.75" PointY="15.75" />
+        <EntityTypeShape EntityType="RealEstateModel.wp_woocommerce_shipping_zone_methods" Width="1.5" PointX="28.75" PointY="18.75" />
+        <EntityTypeShape EntityType="RealEstateModel.wp_woocommerce_shipping_zones" Width="1.5" PointX="28.75" PointY="21.75" />
+        <EntityTypeShape EntityType="RealEstateModel.wp_woocommerce_tax_rate_locations" Width="1.5" PointX="28.75" PointY="24.75" />
+        <EntityTypeShape EntityType="RealEstateModel.wp_woocommerce_tax_rates" Width="1.5" PointX="28.75" PointY="27.75" />
+        <EntityTypeShape EntityType="RealEstateModel.dl_canho_tempitem" Width="1.5" PointX="0.75" PointY="29.75" />
+        <EntityTypeShape EntityType="RealEstateModel.wp_revslider_css" Width="1.5" PointX="2.75" PointY="29.75" />
+        <EntityTypeShape EntityType="RealEstateModel.wp_revslider_layer_animations" Width="1.5" PointX="8.75" PointY="29.75" />
+        <EntityTypeShape EntityType="RealEstateModel.wp_revslider_navigations" Width="1.5" PointX="18.75" PointY="29.75" />
+        <EntityTypeShape EntityType="RealEstateModel.wp_revslider_sliders" Width="1.5" PointX="30.75" PointY="0.75" />
+        <EntityTypeShape EntityType="RealEstateModel.wp_revslider_slides" Width="1.5" PointX="30.75" PointY="3.75" />
+        <EntityTypeShape EntityType="RealEstateModel.wp_revslider_static_slides" Width="1.5" PointX="30.75" PointY="6.75" />
+        <EntityTypeShape EntityType="RealEstateModel.v_canho_giohang" Width="1.5" PointX="10.75" PointY="30.75" />
+        <EntityTypeShape EntityType="RealEstateModel.v_dm_huong" Width="1.5" PointX="12.75" PointY="30.75" />
+        <EntityTypeShape EntityType="RealEstateModel.v_duan" Width="1.5" PointX="14.75" PointY="30.75" />
+        <EntityTypeShape EntityType="RealEstateModel.v_history" Width="1.5" PointX="30.75" PointY="18.75" />
+        <EntityTypeShape EntityType="RealEstateModel.v_nhanvien" Width="1.5" PointX="20.75" PointY="30.75" />
+        <EntityTypeShape EntityType="RealEstateModel.v_phanquyen" Width="1.5" PointX="30.75" PointY="22.75" />
+        <EntityTypeShape EntityType="RealEstateModel.v_phong_ngu" Width="1.5" PointX="22.75" PointY="30.75" />
+        <EntityTypeShape EntityType="RealEstateModel.v_thongtin_chunha" Width="1.5" PointX="24.75" PointY="30.75" />
+        <EntityTypeShape EntityType="RealEstateModel.v_tindang" Width="1.5" PointX="30.75" PointY="26.75" />
+        <EntityTypeShape EntityType="RealEstateModel.v_users" Width="1.5" PointX="4.75" PointY="31.75" />
+        <EntityTypeShape EntityType="RealEstateModel.v_wc" Width="1.5" PointX="26.75" PointY="31.75" />
+        <AssociationConnector Association="RealEstateModel.fk_wp_wc_download_log_permission_id" />
+        <EntityTypeShape EntityType="RealEstateModel.dl_dm_loai" Width="1.5" PointX="7.375" PointY="32.75" />
+        <EntityTypeShape EntityType="RealEstateModel.v_canho" Width="1.5" PointX="17.375" PointY="32.75" />
+        <EntityTypeShape EntityType="RealEstateModel.dl_canho_giohangsalesman" Width="1.5" PointX="31.375" PointY="9.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,637 @@
+﻿@model RealEstate.Libs.Models.DangTin
+@{
+    ViewBag.Title = "Đăng Tin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Header{
+    <div class="d-flex align-items-center flex-wrap mr-1">
+
+        <button class="btn btn-icon mr-4" id="kt_aside_toggle">
+            <span class="svg-icon svg-icon-xl">
+
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <rect x="0" y="0" width="24" height="24" />
+                        <path d="M2 11.5C2 12.3284 2.67157 13 3.5 13H20.5C21.3284 13 22 12.3284 22 11.5V11.5C22 10.6716 21.3284 10 20.5 10H3.5C2.67157 10 2 10.6716 2 11.5V11.5Z" fill="black" />
+                        <path opacity="0.5" fill-rule="evenodd" clip-rule="evenodd" d="M9.5 20C8.67157 20 8 19.3284 8 18.5C8 17.6716 8.67157 17 9.5 17H20.5C21.3284 17 22 17.6716 22 18.5C22 19.3284 21.3284 20 20.5 20H9.5ZM15.5 6C14.6716 6 14 5.32843 14 4.5C14 3.67157 14.6716 3 15.5 3H20.5C21.3284 3 22 3.67157 22 4.5C22 5.32843 21.3284 6 20.5 6H15.5Z" fill="black" />
+                    </g>
+                </svg>
+
+            </span>
+        </button>
+
+        <div class="d-flex align-items-baseline flex-wrap mr-5">
+
+            <h5 class="text-dark font-weight-bold my-1 mr-5">
+                @Resources.App.DangTin
+                <small class="text-muted ml-1">Thêm/Sửa</small>
+            </h5>
+
+        </div>
+    </div>
+
+    <div class="d-flex align-items-center">
+        <!--begin::Dropdown-->
+        <div class="dropdown dropdown-inline" data-toggle="tooltip" title="Quick actions" data-placement="top">
+            <a href="#" class="btn btn-primary btn-shadow-hover font-weight-bold mr-2">
+                <i class="icon-1x text-dark-50 ki ki-solid-plus"></i>
+                <span class="svg-icon svg-icon-md">
+                    @Resources.App.CapNhat
+                </span>
+            </a>
+
+        </div>
+        <!--end::Dropdown-->
+    </div>
+    <!--end::Toolbar-->
+}
+<!--begin::Card-->
+<div class="card card-custom gutter-b example example-compact">
+    <div class="card-header">
+        <h3 class="card-title">Thông Tin Căn Hộ</h3>
+        @*<div class="card-toolbar">
+                <div class="example-tools justify-content-center">
+                    <span class="example-toggle" data-toggle="tooltip" title="" data-original-title="View code"></span>
+                    <span class="example-copy" data-toggle="tooltip" title="" data-original-title="Copy code"></span>
+                </div>
+            </div>*@
+    </div>
+    <!--begin::Form-->
+    <div class="card-body">
+        <form id="kt_form_1" class="form">
+            <div class="form-group">
+                <label>Tiêu đề đăng tin <b class="text-danger">*</b> (tối đa 70 ký tự)</label>
+                <input type="text" class="form-control form-control-solid" id="txt-title" placeholder="Tiêu đề đăng tin" maxlength="70" name="txt_title">
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>Dự án<b class="text-danger">*</b></label>
+                        <div id="select-duan">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>Chủ đầu tư<b class="text-danger">*</b></label>
+                        <div id="select-chudautu">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>Diện tích</label>
+                        <div id="txt-dientich">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>Hướng cửa</label>
+                        <div id="select-huongcua">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>Số PN</label>
+                        <div id="txt-sophongngu">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>Số WC</label>
+                        <div id="txt-sowc">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>View</label>
+                        <div id="txt-view">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>Loại kinh doanh<b class="text-danger">*</b></label>
+                        <div id="select-loaikinhdoanh">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>Tình trạng CH<b class="text-danger">*</b></label>
+                        <div id="select-tinhtrangcanho">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>Loại CH<b class="text-danger">*</b></label>
+                        <div id="select-loaicanho">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>Loại bàn giao</label>
+                        <input type="email" class="form-control" placeholder="Enter email">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>Video Link</label>
+                        <div id="txt-videolink">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>Giá bán</label>
+                        <div id="txt-giaban">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="form-group">
+                        <label>Tỷ giá</label>
+                        <input type="email" class="form-control" placeholder="Enter email">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>Giá bán (USD)</label>
+                        <div id="txt-giabanusd">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="form-group">
+                        <label>Tỷ giá</label>
+                        <input type="email" class="form-control" placeholder="Enter email">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>Giá thuê</label>
+                        <div id="txt-giathue">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="form-group">
+                        <label>Tỷ giá</label>
+                        <input type="email" class="form-control" placeholder="Enter email">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>Giá thuê(USD)</label>
+                        <div id="txt-giathueusd">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="form-group">
+                        <label>Tỷ giá</label>
+                        <input type="email" class="form-control" placeholder="Enter email">
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="form-group row">
+                    <div class="col-lg-9 col-xl-6">
+                        <div class="image-input image-input-outline" id="kt_image_5">
+                            <input type="file" name="files[]" multiple="" accept="image/x-png,image/jpeg">
+                        </div>
+                        <input type="checkbox" />
+                        <input type="text" class="form-control" />
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-lg-12">
+                    <!--begin::Card-->
+                    <div class="card card-custom gutter-b example example-compact">
+                        <div class="card-header">
+                            <h3 class="card-title">Nội dung</h3>
+                        </div>
+                        <div class="card-body">
+                            <div id="kt-ckeditor-1-toolbar"></div>
+                            <div id="kt-ckeditor-1" class="ck-blurred ck ck-content ck-editor__editable ck-rounded-corners ck-editor__editable_inline" lang="en" dir="ltr" role="textbox" aria-label="Rich Text Editor, main" contenteditable="true"></div>
+                            <!--begin: Code-->
+                            <div class="example-code mt-10" id="noidung">
+
+                            </div>
+                            <!--end: Code-->
+                        </div>
+                    </div>
+                    <!--end::Card-->
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card card-custom gutter-b example example-compact">
+                        <div class="card-header">
+                            <h3 class="card-title">Tính năng bỏ sung</h3>
+                        </div>
+                        <div class="row" id="TinhNangBoSung">
+
+                        </div>
+                        <div class="card-footer">
+                            <button type="reset" class="btn btn-primary mr-2" id="thembosung" onclick="ThemTinhNang()"> Thêm tính năng</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+
+    </div>
+    <div class="card-footer">
+        <button type="reset" class="btn btn-primary mr-2" id="CapNhap">Submit</button>
+        <button type="reset" class="btn btn-secondary">Cancel</button>
+    </div>
+
+    <!--end::Form-->
+</div>
+<!--end::Card-->
+@section ScriptsFile{
+    <script src="~/Scripts/ckeditor-document.bundle.js"></script>
+}
+@section CustomScripts{
+    <script type="text/javascript">
+        var KTCkeditorDocument = function () {
+            // Private functions
+            var demos = function () {
+                DecoupledEditor
+                    .create(document.querySelector('#kt-ckeditor-1'))
+                    .then(editor => {
+                        const toolbarContainer = document.querySelector('#kt-ckeditor-1-toolbar');
+
+                        toolbarContainer.appendChild(editor.ui.view.toolbar.element);
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
+            }
+            return {
+                // public functions
+                init: function () {
+                    demos();
+                }
+            };
+        }();
+
+        var vduan = null;
+        var duan, loaicanho, tinhtrangcanho, loaikinhdoanh, chudautu, huongcua;
+        function ThemTinhNang() {
+            var index = $(".bosungchitiet").length + 1;
+            var mySecondDiv = '<div class = "col-md-6 bosungchitiet"> <div class="row">' +
+                '<div class="col-md-4"><div class="form-group"><label>Tên</label><input type="text" class="form-control" id= "Ten_' + index+'"/></div> </div>' +
+                '<div class="col-md-5"><div class="form-group"><label>Giá trị <b class="text-danger">*</b></label><input type="text" class="form-control" id= "ChiTiet_' + index +'"/></div> </div>' +
+                '<div class="col-md-3"><div class="form-group"><span class="navi-icon" onclick = "XoaBoXung(this)"><i class="icon-2x text-dark-50 flaticon-delete"></i></span></div> </div>'
+                + "</div> </div>";
+        //    //$("#TinhNangBoSung").append("<div class = "col-sm-12"> ")
+        //    $("#TinhNangBoSung").append('<div class="col-md-2"><div class="form-group"><label>Tên</label><input type="text" class="form-control" /></div> </div>');
+        //    $("#TinhNangBoSung").append('<div class="col-md-3"><div class="form-group"><label>Giá trị <b class="text-danger">*</b></label><input type="text" class="form-control" /></div> </div>');
+        //    $("#TinhNangBoSung").append('<div class="col-md-1"><div class="form-group"><span class="navi-icon" onclick = "XoaBoXung(this)"><i class="icon-2x text-dark-50 flaticon-delete"></i></span></div> </div>');
+        //    $("#TinhNangBoSung").append("</div>")
+            $("#TinhNangBoSung").append(mySecondDiv);
+        }
+        function XoaBoXung(a) {
+            var s = $(a).parents(".bosungchitiet");
+            var array = $(".bosungchitiet");
+            alert(array.length);
+            s.remove();
+        }
+        $(function () {
+            KTCkeditorDocument.init();
+            $("#txt-dientich").dxNumberBox({
+                showSpinButtons: true,
+                showClearButton: true,
+                format: "###,###",
+            });
+            $("#txt-sophongngu").dxNumberBox({
+                showSpinButtons: true,
+                showClearButton: true,
+                format: "###,###",
+                min: 1,
+                max: 20,
+            });
+            $("#txt-sowc").dxNumberBox({
+                showSpinButtons: true,
+                showClearButton: true,
+                format: "###,###",
+                min: 1,
+                max: 20,
+            });
+            $("#txt-giaban").dxNumberBox({
+                showSpinButtons: true,
+                showClearButton: true,
+                format: "###,###",
+            });
+            $("#txt-giabanusd").dxNumberBox({
+                showSpinButtons: true,
+                showClearButton: true,
+                format: "###,###",
+            });
+            $("#txt-giathue").dxNumberBox({
+                showSpinButtons: true,
+                showClearButton: true,
+                format: "###,###",
+            });
+            $("#txt-giathueusd").dxNumberBox({
+                showSpinButtons: true,
+                showClearButton: true,
+                format: "###,###",
+            });
+            $("#txt-view").dxTextBox({
+            });
+            $("#txt-videolink").dxTextBox({
+            });
+            $("#txt-noidung").dxTextBox({
+            });
+            $.get('@Url.Action("GetDanhMuc", "Data")', function (rs) {
+
+                huongcua = rs.filter(item => item.taxonomy == 'huong');
+                $("#select-huongcua").dxDropDownBox({
+                    dataSource: new DevExpress.data.ArrayStore({ key: "term_taxonomy_id", data: huongcua }),
+                    valueExpr: "term_taxonomy_id",
+                    deferRendering: false,
+                    placeholder: "Chọn ...",
+                    displayExpr: function (item) {
+                        if (item)
+                            return item.name;
+                        else return null;
+                    },
+                    showClearButton: false,
+                    value: vduan,
+                    onOpened: function (e) {
+                        var drw = 550;
+                        var popupInstance = e.element.find(".dx-popup").dxPopup("instance"); popupInstance.option('width', drw); popupInstance.off("optionChanged", optionChangedHandler); popupInstance.on("optionChanged", optionChangedHandler); function optionChangedHandler(args) { if (args.name == "width" && args.value < drw) { args.component.option("width", drw); } } e.component.getDataSource().reload();
+                    },
+                    contentTemplate: function (e) {
+                        var value = e.component.option("value"),
+                            $dataGrid = $("<div>").dxDataGrid({
+                                filterRow: {
+                                    visible: true,
+                                    applyFilter: "auto"
+                                },
+                                dataSource: e.component.getDataSource(),
+                                columns: [{ dataField: 'name', caption: 'Tên dự án' }],
+                                hoverStateEnabled: true, pager: { showPageSizeSelector: true, showInfo: true }, rowAlternationEnabled: true, showBorders: true, hoverStateEnabled: false, allowColumnReordering: true, allowColumnResizing: true, columnAutoWidth: true, selection: { mode: "single" }, selectedRowKeys: [value], height: "100%",
+                                onSelectionChanged: function (selectedItems) {
+                                    var keys = selectedItems.selectedRowKeys, hasSelection = keys.length; e.component.option("value", hasSelection ? keys[0] : null); if (hasSelection) { e.component.close(); }
+                                }
+                            });
+                        dataGrid = $dataGrid.dxDataGrid("instance");
+                        e.component.on("valueChanged", function (args) {
+                            dataGrid.selectRows(args.value, false);
+                        });
+                        return $dataGrid;
+                    }
+                }).dxValidator({ validationRules: [{ type: "required" }] });
+
+                chudautu = rs.filter(item => item.taxonomy == 'chu-dau-tu');
+                $("#select-chudautu").dxDropDownBox({
+                    dataSource: new DevExpress.data.ArrayStore({ key: "term_taxonomy_id", data: chudautu }),
+                    valueExpr: "term_taxonomy_id",
+                    deferRendering: false,
+                    placeholder: "Chọn ...",
+                    displayExpr: function (item) {
+                        if (item)
+                            return item.name;
+                        else return null;
+                    },
+                    showClearButton: false,
+                    value: vduan,
+                    onOpened: function (e) {
+                        var drw = 550;
+                        var popupInstance = e.element.find(".dx-popup").dxPopup("instance"); popupInstance.option('width', drw); popupInstance.off("optionChanged", optionChangedHandler); popupInstance.on("optionChanged", optionChangedHandler); function optionChangedHandler(args) { if (args.name == "width" && args.value < drw) { args.component.option("width", drw); } } e.component.getDataSource().reload();
+                    },
+                    contentTemplate: function (e) {
+                        var value = e.component.option("value"),
+                            $dataGrid = $("<div>").dxDataGrid({
+                                filterRow: {
+                                    visible: true,
+                                    applyFilter: "auto"
+                                },
+                                dataSource: e.component.getDataSource(),
+                                columns: [{ dataField: 'name', caption: 'Tên dự án' }],
+                                hoverStateEnabled: true, pager: { showPageSizeSelector: true, showInfo: true }, rowAlternationEnabled: true, showBorders: true, hoverStateEnabled: false, allowColumnReordering: true, allowColumnResizing: true, columnAutoWidth: true, selection: { mode: "single" }, selectedRowKeys: [value], height: "100%",
+                                onSelectionChanged: function (selectedItems) {
+                                    var keys = selectedItems.selectedRowKeys, hasSelection = keys.length; e.component.option("value", hasSelection ? keys[0] : null); if (hasSelection) { e.component.close(); }
+                                }
+                            });
+                        dataGrid = $dataGrid.dxDataGrid("instance");
+                        e.component.on("valueChanged", function (args) {
+                            dataGrid.selectRows(args.value, false);
+                        });
+                        return $dataGrid;
+                    }
+                }).dxValidator({ validationRules: [{ type: "required" }] });
+
+                loaikinhdoanh = rs.filter(item => item.taxonomy == 'loai-kinh-doanh');
+                $("#select-loaikinhdoanh").dxDropDownBox({
+                    dataSource: new DevExpress.data.ArrayStore({ key: "term_taxonomy_id", data: loaikinhdoanh }),
+                    valueExpr: "term_taxonomy_id",
+                    deferRendering: false,
+                    placeholder: "Chọn ...",
+                    displayExpr: function (item) {
+                        if (item)
+                            return item.name;
+                        else return null;
+                    },
+                    showClearButton: false,
+                    value: vduan,
+                    onOpened: function (e) {
+                        var drw = 550;
+                        var popupInstance = e.element.find(".dx-popup").dxPopup("instance"); popupInstance.option('width', drw); popupInstance.off("optionChanged", optionChangedHandler); popupInstance.on("optionChanged", optionChangedHandler); function optionChangedHandler(args) { if (args.name == "width" && args.value < drw) { args.component.option("width", drw); } } e.component.getDataSource().reload();
+                    },
+                    contentTemplate: function (e) {
+                        var value = e.component.option("value"),
+                            $dataGrid = $("<div>").dxDataGrid({
+                                filterRow: {
+                                    visible: true,
+                                    applyFilter: "auto"
+                                },
+                                dataSource: e.component.getDataSource(),
+                                columns: [{ dataField: 'name', caption: 'Tên dự án' }],
+                                hoverStateEnabled: true, pager: { showPageSizeSelector: true, showInfo: true }, rowAlternationEnabled: true, showBorders: true, hoverStateEnabled: false, allowColumnReordering: true, allowColumnResizing: true, columnAutoWidth: true, selection: { mode: "single" }, selectedRowKeys: [value], height: "100%",
+                                onSelectionChanged: function (selectedItems) {
+                                    var keys = selectedItems.selectedRowKeys, hasSelection = keys.length; e.component.option("value", hasSelection ? keys[0] : null); if (hasSelection) { e.component.close(); }
+                                }
+                            });
+                        dataGrid = $dataGrid.dxDataGrid("instance");
+                        e.component.on("valueChanged", function (args) {
+                            dataGrid.selectRows(args.value, false);
+                        });
+                        return $dataGrid;
+                    }
+                }).dxValidator({ validationRules: [{ type: "required" }] });
+
+                duan = rs.filter(item => item.taxonomy == 'du-an');
+
+                $("#select-duan").dxDropDownBox({
+                    dataSource: new DevExpress.data.ArrayStore({ key: "term_taxonomy_id", data: duan }),
+                    valueExpr: "term_taxonomy_id",
+                    deferRendering: false,
+                    placeholder: "Chọn ...",
+                    displayExpr: function (item) {
+                        if (item)
+                            return item.name;
+                        else return null;
+                    },
+                    showClearButton: false,
+                    value: vduan,
+                    onOpened: function (e) {
+                        var drw = 550;
+                        var popupInstance = e.element.find(".dx-popup").dxPopup("instance"); popupInstance.option('width', drw); popupInstance.off("optionChanged", optionChangedHandler); popupInstance.on("optionChanged", optionChangedHandler); function optionChangedHandler(args) { if (args.name == "width" && args.value < drw) { args.component.option("width", drw); } } e.component.getDataSource().reload();
+                    },
+                    contentTemplate: function (e) {
+                        var value = e.component.option("value"),
+                            $dataGrid = $("<div>").dxDataGrid({
+                                filterRow: {
+                                    visible: true,
+                                    applyFilter: "auto"
+                                },
+                                dataSource: e.component.getDataSource(),
+                                columns: [{ dataField: 'name', caption: 'Tên dự án' }],
+                                hoverStateEnabled: true, pager: { showPageSizeSelector: true, showInfo: true }, rowAlternationEnabled: true, showBorders: true, hoverStateEnabled: false, allowColumnReordering: true, allowColumnResizing: true, columnAutoWidth: true, selection: { mode: "single" }, selectedRowKeys: [value], height: "100%",
+                                onSelectionChanged: function (selectedItems) {
+                                    var keys = selectedItems.selectedRowKeys, hasSelection = keys.length; e.component.option("value", hasSelection ? keys[0] : null); if (hasSelection) { e.component.close(); }
+                                }
+                            });
+                        dataGrid = $dataGrid.dxDataGrid("instance");
+                        e.component.on("valueChanged", function (args) {
+                            dataGrid.selectRows(args.value, false);
+                        });
+                        return $dataGrid;
+                    }
+                }).dxValidator({ validationRules: [{ type: "required" }] });
+
+                loaicanho = rs.filter(item => item.taxonomy == 'loai');
+                $("#select-loaicanho").dxDropDownBox({
+                    dataSource: new DevExpress.data.ArrayStore({ key: "term_taxonomy_id", data: loaicanho }),
+                    valueExpr: "term_taxonomy_id",
+                    deferRendering: false,
+                    placeholder: "Chọn ...",
+                    displayExpr: function (item) {
+                        if (item)
+                            return item.name;
+                        else return null;
+                    },
+                    showClearButton: false,
+                    value: vduan,
+                    onOpened: function (e) {
+                        var drw = 550;
+                        var popupInstance = e.element.find(".dx-popup").dxPopup("instance"); popupInstance.option('width', drw); popupInstance.off("optionChanged", optionChangedHandler); popupInstance.on("optionChanged", optionChangedHandler); function optionChangedHandler(args) { if (args.name == "width" && args.value < drw) { args.component.option("width", drw); } } e.component.getDataSource().reload();
+                    },
+                    contentTemplate: function (e) {
+                        var value = e.component.option("value"),
+                            $dataGrid = $("<div>").dxDataGrid({
+                                filterRow: {
+                                    visible: true,
+                                    applyFilter: "auto"
+                                },
+                                dataSource: e.component.getDataSource(),
+                                columns: [{ dataField: 'name', caption: 'Tên dự án' }],
+                                hoverStateEnabled: true, pager: { showPageSizeSelector: true, showInfo: true }, rowAlternationEnabled: true, showBorders: true, hoverStateEnabled: false, allowColumnReordering: true, allowColumnResizing: true, columnAutoWidth: true, selection: { mode: "single" }, selectedRowKeys: [value], height: "100%",
+                                onSelectionChanged: function (selectedItems) {
+                                    var keys = selectedItems.selectedRowKeys, hasSelection = keys.length; e.component.option("value", hasSelection ? keys[0] : null); if (hasSelection) { e.component.close(); }
+                                }
+                            });
+                        dataGrid = $dataGrid.dxDataGrid("instance");
+                        e.component.on("valueChanged", function (args) {
+                            dataGrid.selectRows(args.value, false);
+                        });
+                        return $dataGrid;
+                    }
+                }).dxValidator({ validationRules: [{ type: "required" }] });
+
+                tinhtrangcanho = rs.filter(item => item.taxonomy == 'trang-thai');
+                $("#select-tinhtrangcanho").dxDropDownBox({
+                    dataSource: new DevExpress.data.ArrayStore({ key: "term_taxonomy_id", data: tinhtrangcanho }),
+                    valueExpr: "term_taxonomy_id",
+                    deferRendering: false,
+                    placeholder: "Chọn ...",
+                    displayExpr: function (item) {
+                        if (item)
+                            return item.name;
+                        else return null;
+                    },
+                    showClearButton: false,
+                    value: vduan,
+                    onOpened: function (e) {
+                        var drw = 550;
+                        var popupInstance = e.element.find(".dx-popup").dxPopup("instance"); popupInstance.option('width', drw); popupInstance.off("optionChanged", optionChangedHandler); popupInstance.on("optionChanged", optionChangedHandler); function optionChangedHandler(args) { if (args.name == "width" && args.value < drw) { args.component.option("width", drw); } } e.component.getDataSource().reload();
+                    },
+                    contentTemplate: function (e) {
+                        var value = e.component.option("value"),
+                            $dataGrid = $("<div>").dxDataGrid({
+                                filterRow: {
+                                    visible: true,
+                                    applyFilter: "auto"
+                                },
+                                dataSource: e.component.getDataSource(),
+                                columns: [{ dataField: 'name', caption: 'Tên dự án' }],
+                                hoverStateEnabled: true, pager: { showPageSizeSelector: true, showInfo: true }, rowAlternationEnabled: true, showBorders: true, hoverStateEnabled: false, allowColumnReordering: true, allowColumnResizing: true, columnAutoWidth: true, selection: { mode: "single" }, selectedRowKeys: [value], height: "100%",
+                                onSelectionChanged: function (selectedItems) {
+                                    var keys = selectedItems.selectedRowKeys, hasSelection = keys.length; e.component.option("value", hasSelection ? keys[0] : null); if (hasSelection) { e.component.close(); }
+                                }
+                            });
+                        dataGrid = $dataGrid.dxDataGrid("instance");
+                        e.component.on("valueChanged", function (args) {
+                            dataGrid.selectRows(args.value, false);
+                        });
+                        return $dataGrid;
+                    }
+                }).dxValidator({ validationRules: [{ type: "required" }] });
+            });
+
+        });
+
+    </script>
+    @if (User.IsInRole("0=0") || User.IsInRole("1=2"))
+    {
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $("#CapNhap").click(function () {
+
+                    alert($("#kt-ckeditor-1").html());
+                    var data = {};
+                    data.TieuDe = $("#txt-title").val();
+                    data.DuAn = $("#select-duan").dxDropDownBox("instance").option('value');
+                    data.ChuDauTu = $("#select-chudautu").dxDropDownBox("instance").option('value');
+                    data.DienTich = $('#txt-dientich').dxNumberBox('instance').option('value');
+                    data.HuongCua = $("#select-huongcua").dxDropDownBox("instance").option('value');
+                    data.SoPN = $('#txt-sophongngu').dxNumberBox('instance').option('value')
+                    data.SoWC = $('#txt-sowc').dxNumberBox('instance').option('value')
+                    data.View = $('#txt-view').dxTextBox('instance').option('value');
+                    data.LoaiKinhDoanh = $("#select-loaikinhdoanh").dxDropDownBox("instance").option('value');
+                    data.TinhTrangCH = $("#select-tinhtrangcanho").dxDropDownBox("instance").option('value');
+                    data.LoaiCH = $("#select-loaicanho").dxDropDownBox("instance").option('value');
+                    data.VideoLink = $('#txt-videolink').dxTextBox('instance').option('value');
+                    data.GiaChoThue = $('#txt-giathue').dxNumberBox('instance').option('value');
+                    data.GiaBan = $('#txt-giaban').dxNumberBox('instance').option('value');
+                    data.NoiDung = $("#kt-ckeditor-1").html();
+                    data.__RequestVerificationToken = $('input[name="__RequestVerificationToken"]').val();
+                    $.post('@Url.Action("AddDangTin", "DangTin")', data).done(function (rs) {
+                        alert("Thành Công");
+                        });
+                });
+            });
+
+        </script>
+    }
+}

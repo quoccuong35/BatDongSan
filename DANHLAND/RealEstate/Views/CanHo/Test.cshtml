@@ -1,0 +1,107 @@
+﻿
+@{
+    ViewBag.Title = "Test";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    #KhungNen {
+        position: relative;
+    }
+
+    #XoaHinh, #Name, #Size {
+        display: none;
+    }
+
+    #KhungNen:hover #XoaHinh {
+        display: block;
+        position: absolute;
+        top: 40%;
+        left: 40%;
+        display: block;
+    }
+
+    #ThemHinh {
+        display: block;
+        position: absolute;
+        top: 32%;
+        left: 30%;
+        display: block;
+    }
+</style>
+<div class="row" id="KhungHinh">
+    <div class="col-md-2 mr-5" id="Hinh">
+        <div class="image-input" id="KhungNen">
+            <div class="image-input-wrapper" style="background-image: url('/Content/upload/canho/31/1da4d831-24b4-4ed7-b5f4-4c2eea9de593x1024.jpg')" id="HinhNen">
+            </div>
+            <span class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary" id="XoaHinh" onclick="XoaHinh(this)">
+                <i class="ki ki-bold-close icon-xs text-muted"></i>
+            </span>
+        </div>
+        <div>
+            <input type="radio" onchange="SetHinhDaiDien(this)" name="check-dd"> Hình đại diện
+        </div>
+    </div>
+    <div class="col-md-2 mr-5" id="Hinh">
+        <div class="image-input" id="KhungNen">
+            <div class="image-input-wrapper" style="background-image: url('/Content/upload/canho/31/1da4d831-24b4-4ed7-b5f4-4c2eea9de593x1024.jpg')" id="HinhNen">
+            </div>
+            <span class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" title="Cancel avatar" id="XoaHinh">
+                <i class="ki ki-bold-close icon-xs text-muted"></i>
+            </span>
+        </div>
+        <div>
+            <input type="radio" onchange="SetHinhDaiDien(this)" name="check-dd"> Hình đại diện
+        </div>
+    </div>
+    <div class="col-md-2" id="ThemMoi">
+        <div class="image-input" id="KhungNen">
+            <div class="image-input-wrapper" style="background-color:darkgray" id="HinhNen">
+            </div>
+            <span class="btn btn-xs btn-icon btn-shadow" title="Thêm hình" id="ThemHinh" onclick="ChonFile()">
+                <i class="icon-3x text-dark-50 flaticon-add-circular-button"></i>
+            </span>
+            <input type="file" name="files[]" multiple="" accept="image/x-png,image/jpeg" style="display:none" id="file">
+        </div>
+    </div>
+</div>
+<b style="color:darkblue">jhjhjehr rtjhjth rjthj</b>
+<div name="kt-ckeditor-1" id="kt-ckeditor-1" class="ck ck-content ck-editor__editable ck-rounded-corners ck-editor__editable_inline ck-blurred" lang="en" dir="ltr" role="textbox" aria-label="Rich Text Editor, main" contenteditable="true"><p>Click here to trigger the editor</p><h2>Quick and simple CKEditor 5 Integration</h2><p>Here goes the initial content of the editor. Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p><p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled. Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p><h3>Flexible &amp; Powerful</h3><p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled.</p><p>Lorem ipsum dolor sit amet,consectetuer edipiscing elit,sed diam nonummy nibh euismod tinciduntut laoreet doloremagna aliquam erat volutpat.Ut wisi enim ad minim veniam,quis nostrud exerci tation ullamcorper. Lorem ipsum dolor sit amet,consectetuer edipiscing elit,sed diam nonummy nibh euismod tinciduntut laoreet doloremagna aliquam erat volutpat.Ut wisi enim ad minim veniam,quis nostrud exerci tation ullamcorper.</p><p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p></div>
+@section ScriptsFile{
+    <script src="~/Scripts/ckeditor-document.bundle.js"></script>
+    <script src="~/Scripts/parsley.min.js"></script>
+    <script src="~/Scripts/ckeditor-inline790f.js"></script>
+}
+@section CustomScripts{
+    <script type="text/javascript">
+        //function Mouseover(a) {
+        //   var s =  $(a).find('#XoaHinh');
+        //   //alert(s.id);
+        //}
+        //function Mouseout(a) {
+        //    //alert(a);
+        //}
+
+        function XoaHinh(item) {
+            //$(item).parent().parent().attr('id');
+            var del = document.getElementById($(item).parent().parent().attr('id'));
+            del.remove();
+
+        }
+        function ChonFile() {
+            // $("#file").click();
+            var check = $("#file").click();
+            var formData = new FormData();
+            var totalFiles = document.getElementById("ChonFile").files.length;
+            if (totalFiles > 0) {
+                for (var i = 0; i < totalFiles; i++) {
+                    var file = document.getElementById("ChonFile").files[i];
+                    formData.append("FileUpload", file);
+                }
+                alert(totalFiles);
+            }
+        }
+
+
+    </script>
+}
+

@@ -1,0 +1,45 @@
+/* The name of the database for WordPress /
+define( 'DB_NAME', 'tec22960_danhland' );
+
+/* 
+MySQL database username /
+define( 'DB_USER', 'tec22960_root' );
+
+/* 
+MySQL database password /
+define( 'DB_PASSWORD', 'Danhland@2020' );
+
+/* 
+MySQL hostname /
+define( 'DB_HOST', '112.78.2.23:3306' );
+
+
+
+103.124.94.248
+ Administrator
+Danhland2021
+
+///
+new
+
+103.98.160.126
+Administrator
+37xe5@2RQnFE
+
+my sql
+103.98.160.69
+danhland_new
+dan11595_root
+Aimabiet#103
+
+user Administrator
+pass Rsk9Yk3QKm4h
+
+
+FPT
+url: 103.98.160.69
+user: danhland
+pass: Danhland@2022
+port 5003
+
+

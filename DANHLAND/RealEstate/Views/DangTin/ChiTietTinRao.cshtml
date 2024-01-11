@@ -1,0 +1,310 @@
+﻿@using RealEstate.Libs.Models;
+@model ChiTietDangTin
+@{
+    ViewBag.Title = Resources.App.DangTin_TinMoi;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string imgs_key = System.Guid.NewGuid().ToString();
+}
+@section CSSFileTop{
+    <style>
+        .bold {
+            font-weight: bold;
+        }
+        /* Position the image container (needed to position the left and right arrows) */
+        .container {
+            position: relative;
+        }
+
+        /* Hide the images by default */
+        .mySlides {
+            display: none;
+        }
+
+        /* Add a pointer when hovering over the thumbnail images */
+        .cursor {
+            cursor: pointer;
+        }
+
+        /* Next & previous buttons */
+        .prev,
+        .next {
+            cursor: pointer;
+            position: absolute;
+            top: 40%;
+            width: auto;
+            padding: 16px;
+            margin-top: -50px;
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+            border-radius: 0 3px 3px 0;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        /* Position the "next button" to the right */
+        .next {
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
+
+            /* On hover, add a black background color with a little bit see-through */
+            .prev:hover,
+            .next:hover {
+                background-color: rgba(0, 0, 0, 0.8);
+            }
+
+        /* Number text (1/3 etc) */
+        .numbertext {
+            color: #f2f2f2;
+            font-size: 12px;
+            padding: 8px 12px;
+            position: absolute;
+            top: 0;
+        }
+
+        /* Container for image text */
+        .caption-container {
+            text-align: center;
+            background-color: #222;
+            padding: 2px 16px;
+            color: white;
+        }
+
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        /* Six columns side by side */
+        .column {
+            float: left;
+            width: 16%;
+        }
+
+        /* Add a transparency effect for thumnbail images */
+        .demo {
+            opacity: 0.6;
+        }
+
+            .active,
+            .demo:hover {
+                opacity: 1;
+            }
+    </style>
+}
+@section Header{
+
+    <div class="d-flex align-items-center flex-wrap mr-1">
+
+        <button class="btn btn-icon mr-4" id="kt_aside_toggle">
+            <span class="svg-icon svg-icon-xl">
+
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <rect x="0" y="0" width="24" height="24" />
+                        <path d="M2 11.5C2 12.3284 2.67157 13 3.5 13H20.5C21.3284 13 22 12.3284 22 11.5V11.5C22 10.6716 21.3284 10 20.5 10H3.5C2.67157 10 2 10.6716 2 11.5V11.5Z" fill="black" />
+                        <path opacity="0.5" fill-rule="evenodd" clip-rule="evenodd" d="M9.5 20C8.67157 20 8 19.3284 8 18.5C8 17.6716 8.67157 17 9.5 17H20.5C21.3284 17 22 17.6716 22 18.5C22 19.3284 21.3284 20 20.5 20H9.5ZM15.5 6C14.6716 6 14 5.32843 14 4.5C14 3.67157 14.6716 3 15.5 3H20.5C21.3284 3 22 3.67157 22 4.5C22 5.32843 21.3284 6 20.5 6H15.5Z" fill="black" />
+                    </g>
+                </svg>
+
+            </span>
+        </button>
+
+        <div class="d-flex align-items-baseline flex-wrap mr-5">
+
+            <h5 class="text-dark font-weight-bold my-1 mr-5">
+                @Resources.App.DangTin
+
+            </h5>
+            <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 ">
+                <li class="breadcrumb-item text-muted">
+                    <a href="" class="text-muted"> @Resources.App.ChiTietTinRao</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="d-flex align-items-center">
+        <a href="@Url.Action("Index","DangTin")" class="btn btn-default font-weight-bold  px-3 font-size-base  mr-2">  @Resources.App.QuayLai</a>
+        <a href="@Url.Action("Index","DangTin")" class="btn btn-primary font-weight-bold btn-sm px-3 font-size-base mr-2">
+            <span class="svg-icon svg-icon-md">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <rect x="0" y="0" width="24" height="24" />
+                        <path d="M8,17.9148182 L8,5.96685884 C8,5.56391781 8.16211443,5.17792052 8.44982609,4.89581508 L10.965708,2.42895648 C11.5426798,1.86322723 12.4640974,1.85620921 13.0496196,2.41308426 L15.5337377,4.77566479 C15.8314604,5.0588212 16,5.45170806 16,5.86258077 L16,17.9148182 C16,18.7432453 15.3284271,19.4148182 14.5,19.4148182 L9.5,19.4148182 C8.67157288,19.4148182 8,18.7432453 8,17.9148182 Z" fill="#000000" fill-rule="nonzero" transform="translate(12.000000, 10.707409) rotate(-135.000000) translate(-12.000000, -10.707409) " />
+                        <rect fill="#000000" opacity="0.3" x="5" y="20" width="15" height="2" rx="1" />
+                    </g>
+                </svg>
+            </span>  @Resources.App.ChinhSuaTinDang
+        </a>
+        <a href="@Url.Action("Index","DangTin")" class="btn btn-light-primary font-weight-bold btn-sm px-3 font-size-base "> 
+        <span class="svg-icon svg-icon-md svg-icon-primary">
+  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+            <rect x="0" y="0" width="24" height="24" />
+            <path d="M6,8 L18,8 L17.106535,19.6150447 C17.04642,20.3965405 16.3947578,21 15.6109533,21 L8.38904671,21 C7.60524225,21 6.95358004,20.3965405 6.89346498,19.6150447 L6,8 Z M8,10 L8.45438229,14.0894406 L15.5517885,14.0339036 L16,10 L8,10 Z" fill="#000000" fill-rule="nonzero" />
+            <path d="M14,4.5 L14,3.5 C14,3.22385763 13.7761424,3 13.5,3 L10.5,3 C10.2238576,3 10,3.22385763 10,3.5 L10,4.5 L5.5,4.5 C5.22385763,4.5 5,4.72385763 5,5 L5,5.5 C5,5.77614237 5.22385763,6 5.5,6 L18.5,6 C18.7761424,6 19,5.77614237 19,5.5 L19,5 C19,4.72385763 18.7761424,4.5 18.5,4.5 L14,4.5 Z" fill="#000000" opacity="0.3" />
+        </g>
+    </svg><!--end::Svg Icon-->
+</span> @Resources.App.XoaTinDang</a>
+    </div>
+
+}
+<div class="card card-custom">
+    <div class="card-body">
+        <div class="row">
+            <h2>@Model.TieuDe</h2>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-6">
+                <div class="row">
+                    <h2>Thông tin bất động sản</h2>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <ul>
+                            <li class="form-group"><span class="bold">Dự Án: </span>&nbsp;  @Model.DuAn</li>
+                            <li class="form-group"><span class="bold">Tình trạng:</span> &nbsp;@Model.TinhTrang</li>
+                            <li class="form-group"><span class="bold">Loại CH:</span> &nbsp; @Model.LoaiCanHo</li>
+                            <li class="form-group"><span class="bold">Số phòng ngủ:</span>&nbsp; @Model.PN</li>
+                            <li class="form-group"><span class="bold">Số phòng tắm:</span>&nbsp; @Model.WC</li>
+                        </ul>
+                    </div>
+                    <div class="col-6 form-group">
+                        <ul>
+                            <li class="form-group"><span class="bold">Loại Bàn Giao:</span> &nbsp; @Model.LoaiBanGiao</li>
+                            <li class="form-group"><span class="bold">Diện tích:</span>&nbsp;  @Model.DT ㎡</li>
+                            <li class="form-group"><span class="bold">Hướng cửa:</span>&nbsp;@Model.HuongCua</li>
+                            <li class="form-group"><span class="bold">Hướng ban công:</span>&nbsp; @Model.HuongBC</li>
+                            <li class="form-group"><span class="bold">Views:</span>&nbsp;@Model.Views</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <h2>Giá bất động sản</h2>
+                </div>
+                <div class="row">
+                    <div class="col-6 ">
+                        <ul>
+                            <li class="menu-item"><span class="bold">Giá bán:</span> @Model.GiaBan</li>
+                        </ul>
+                    </div>
+                    <div class="col-6">
+                        <ul>
+                            <li class="menu-item"><span class="bold">Giá thuê:</span> @Model.GiaThue</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <span class="bold">Ngày tạo :  </span>&nbsp; @Model.NgayTao
+                </div>
+                <div class="row form-group">
+                    <span class="bold">Ngày cập nhật :  </span>&nbsp; @Model.NgaySua
+                </div>
+                <div class="row">
+                    <h2>Mô tả</h2>
+                </div>
+                <div class="row">
+                    <div class="form-group" id="noidung">
+                        @MvcHtmlString.Create(Model.MoTa);
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="container">
+
+                    <!-- Full-width images with number text -->
+                    <div class="row">
+                        @{
+                            if (Model.listImage != null && Model.listImage.Count > 0)
+                            {
+                                int i = 1, count = Model.listImage.Count;
+                                foreach (var item in Model.listImage)
+                                {
+                                    <div class="mySlides">
+                                        <div class="numbertext">@i.ToString() / @count.ToString()</div>
+                                        <img src="@item.Url" style="width:600px;height:300px">
+                                    </div>
+                                    i++;
+                                }
+                            }
+
+                        }
+
+
+                        @*<div class="mySlides">
+                                <div class="numbertext">2 / 6</div>
+                                <img src="https://myhometheme.net/agent/wp-content/uploads/2018/07/houses-on-the-mountain-img.jpg" style="width:600px;height:300px">
+                            </div>*@
+                    </div>
+
+
+                    <!-- Next and previous buttons -->
+                    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                    <a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+                    <!-- Image text -->
+                    @*<div class="caption-container">
+                            <p id="caption"></p>
+                        </div>*@
+                    <br>
+                    <div class="row">
+                        @{
+                            if (Model.listImage != null && Model.listImage.Count > 0)
+                            {
+                                int i = 1;
+                                foreach (var item in Model.listImage)
+                                {
+                                    <div class="column">
+                                        <img class="demo cursor" src="@item.Url" style="width:80px;height:50px" onclick="currentSlide(@i)" alt="The Woods">
+                                    </div>
+                                    i++;
+                                }
+                            }
+                        }
+
+                        @*<div class="column">
+                                <img class="demo cursor" src="https://myhometheme.net/agent/wp-content/uploads/2018/07/houses-on-the-mountain-img.jpg" style="width:80px;height:50px" onclick="currentSlide(2)" alt="Cinque Terre">
+                            </div>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section CustomScripts{
+    <script type="text/javascript">
+        var slideIndex = 1;
+        showSlides(slideIndex)
+        //setInterval(plusSlides(slideIndex+1), 5000);
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+
+        // Thumbnail image controls
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+
+        function showSlides(n) {
+            var i;
+            var slides = document.getElementsByClassName("mySlides");
+            var dots = document.getElementsByClassName("demo");
+            var captionText = document.getElementById("caption");
+            if (n > slides.length) { slideIndex = 1 }
+            if (n < 1) { slideIndex = slides.length }
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            slides[slideIndex - 1].style.display = "block";
+            dots[slideIndex - 1].className += " active";
+            //captionText.innerHTML = dots[slideIndex - 1].alt;
+        }
+    </script>
+}

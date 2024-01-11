@@ -1,0 +1,481 @@
+﻿
+@{
+    ViewBag.Title = Resources.App.Menu_GuiYeuCau;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    bool menu = false;
+    bool detail = false;
+    bool del = false;
+    bool edit = false;
+    bool chidinh = false;
+    if (User.IsInRole("17=1") || User.IsInRole("0=0"))
+    {
+        detail = true;
+    }
+
+    if (User.IsInRole("20=1") || User.IsInRole("0=0"))
+    {
+        del = true;
+    }
+
+    if (User.IsInRole("18=1") || User.IsInRole("0=0"))
+    {
+        edit = true;
+    }
+    if (User.IsInRole("19=1") || User.IsInRole("0=0"))
+    {
+        chidinh = true;
+    }
+
+    if (del || edit || detail || chidinh)
+    {
+        menu = true;
+    }
+}
+<style>
+    .color_status {
+        cursor: default;
+        display: inline-block;
+        width: 15px;
+        height: 15px;
+        border: 1px solid #c3c3c3;
+        border-radius: 50%;
+        margin-top: 7px;
+    }
+
+    .dx-datagrid .dx-header-filter {
+        position: relative;
+        color: blue;
+        font: 14px/1 DXIcons;
+    }
+
+    .dx-datagrid .dx-header-filter-empty {
+        color: rgba(149,149,149,.5);
+    }
+</style>
+@section Header{
+
+    <div class="d-flex align-items-center flex-wrap mr-1">
+
+        <button class="btn btn-icon mr-4" id="kt_aside_toggle">
+            <span class="svg-icon svg-icon-xl">
+
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <rect x="0" y="0" width="24" height="24" />
+                        <path d="M2 11.5C2 12.3284 2.67157 13 3.5 13H20.5C21.3284 13 22 12.3284 22 11.5V11.5C22 10.6716 21.3284 10 20.5 10H3.5C2.67157 10 2 10.6716 2 11.5V11.5Z" fill="black" />
+                        <path opacity="0.5" fill-rule="evenodd" clip-rule="evenodd" d="M9.5 20C8.67157 20 8 19.3284 8 18.5C8 17.6716 8.67157 17 9.5 17H20.5C21.3284 17 22 17.6716 22 18.5C22 19.3284 21.3284 20 20.5 20H9.5ZM15.5 6C14.6716 6 14 5.32843 14 4.5C14 3.67157 14.6716 3 15.5 3H20.5C21.3284 3 22 3.67157 22 4.5C22 5.32843 21.3284 6 20.5 6H15.5Z" fill="black" />
+                    </g>
+                </svg>
+
+            </span>
+        </button>
+
+        <div class="d-flex align-items-baseline flex-wrap mr-5">
+
+            <h5 class="text-dark font-weight-bold my-1 mr-5">
+                @Resources.App.YeuCau_DanhSachYeuCau
+
+            </h5>
+            <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 ">
+                <li class="breadcrumb-item text-muted">
+                    <a href="" class="text-muted">@Resources.App.YeuCau_YeuCau</a>
+                </li>
+                <li class="breadcrumb-item text-muted">
+                    <a href="" class="text-muted"> @Resources.App.YeuCau_QuanLyYeuCau</a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+    @if (User.IsInRole("0=0") || User.IsInRole("16=1"))
+    {
+        <div class="d-flex align-items-center">
+            <a href="@Url.Action( "TaoMoi", "GuiYeuCau")" class="btn btn-primary">
+                @*<span class="svg-icon svg-icon-md">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <rect x="0" y="0" width="24" height="24"></rect>
+                                <circle fill="#000000" cx="9" cy="15" r="6"></circle>
+                                <path d="M8.8012943,7.00241953 C9.83837775,5.20768121 11.7781543,4 14,4 C17.3137085,4 20,6.6862915 20,10 C20,12.2218457 18.7923188,14.1616223 16.9975805,15.1987057 C16.9991904,15.1326658 17,15.0664274 17,15 C17,10.581722 13.418278,7 9,7 C8.93357256,7 8.86733422,7.00080962 8.8012943,7.00241953 Z" fill="#000000" opacity="0.3"></path>
+                            </g>
+                        </svg>
+                    </span>*@<i class="flaticon-add"></i> Tạo yêu cầu mới
+            </a>
+
+        </div>
+    }
+
+
+}
+<div class="row">
+    <div class="col-lg-12">
+
+    </div>
+</div>
+<div class="card card-custom gutter-b">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="d-flex align-items-center flex-wrap">
+
+                    <div class="d-flex align-items-center flex-lg-fill mr-5 my-1">
+                        <div class="symbol symbol-45 symbol-light-warning mr-4">
+                            <span class="symbol-label">
+                                <span class="svg-icon svg-icon-2x svg-icon-warning">
+
+                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                            <rect x="0" y="0" width="24" height="24" />
+                                            <path d="M12.9835977,18 C12.7263047,14.0909841 9.47412135,11 5.5,11 C4.98630124,11 4.48466491,11.0516454 4,11.1500272 L4,7 C4,5.8954305 4.8954305,5 6,5 L20,5 C21.1045695,5 22,5.8954305 22,7 L22,16 C22,17.1045695 21.1045695,18 20,18 L12.9835977,18 Z M19.1444251,6.83964668 L13,10.1481833 L6.85557487,6.83964668 C6.4908718,6.6432681 6.03602525,6.77972206 5.83964668,7.14442513 C5.6432681,7.5091282 5.77972206,7.96397475 6.14442513,8.16035332 L12.6444251,11.6603533 C12.8664074,11.7798822 13.1335926,11.7798822 13.3555749,11.6603533 L19.8555749,8.16035332 C20.2202779,7.96397475 20.3567319,7.5091282 20.1603533,7.14442513 C19.9639747,6.77972206 19.5091282,6.6432681 19.1444251,6.83964668 Z" fill="#000000" />
+                                            <path d="M8.4472136,18.1055728 C8.94119209,18.3525621 9.14141644,18.9532351 8.89442719,19.4472136 C8.64743794,19.9411921 8.0467649,20.1414164 7.5527864,19.8944272 L5,18.618034 L5,14.5 C5,13.9477153 5.44771525,13.5 6,13.5 C6.55228475,13.5 7,13.9477153 7,14.5 L7,17.381966 L8.4472136,18.1055728 Z" fill="#000000" fill-rule="nonzero" opacity="0.3" />
+                                        </g>
+                                    </svg>
+
+                                </span>
+                            </span>
+                        </div>
+                        <div class="d-flex flex-column text-dark-75">
+                            <span class="font-weight-bolder">Đã chỉ định</span>
+                            <span class="font-weight-bolder font-size-h5" id="yeucauchidinh">
+                                0
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-center flex-lg-fill mr-5 my-1">
+                        <div class="symbol symbol-45 symbol-light-success mr-4">
+                            <span class="symbol-label">
+                                <span class="svg-icon svg-icon-2x svg-icon-success">
+
+                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                            <rect x="0" y="0" width="24" height="24" />
+                                            <path d="M4.875,20.75 C4.63541667,20.75 4.39583333,20.6541667 4.20416667,20.4625 L2.2875,18.5458333 C1.90416667,18.1625 1.90416667,17.5875 2.2875,17.2041667 C2.67083333,16.8208333 3.29375,16.8208333 3.62916667,17.2041667 L4.875,18.45 L8.0375,15.2875 C8.42083333,14.9041667 8.99583333,14.9041667 9.37916667,15.2875 C9.7625,15.6708333 9.7625,16.2458333 9.37916667,16.6291667 L5.54583333,20.4625 C5.35416667,20.6541667 5.11458333,20.75 4.875,20.75 Z" fill="#000000" fill-rule="nonzero" opacity="0.3" />
+                                            <path d="M2,11.8650466 L2,6 C2,4.34314575 3.34314575,3 5,3 L19,3 C20.6568542,3 22,4.34314575 22,6 L22,15 C22,15.0032706 21.9999948,15.0065399 21.9999843,15.009808 L22.0249378,15 L22.0249378,19.5857864 C22.0249378,20.1380712 21.5772226,20.5857864 21.0249378,20.5857864 C20.7597213,20.5857864 20.5053674,20.4804296 20.317831,20.2928932 L18.0249378,18 L12.9835977,18 C12.7263047,14.0909841 9.47412135,11 5.5,11 C4.23590829,11 3.04485894,11.3127315 2,11.8650466 Z M6,7 C5.44771525,7 5,7.44771525 5,8 C5,8.55228475 5.44771525,9 6,9 L15,9 C15.5522847,9 16,8.55228475 16,8 C16,7.44771525 15.5522847,7 15,7 L6,7 Z" fill="#000000" />
+                                        </g>
+                                    </svg>
+
+                                </span>
+                            </span>
+                        </div>
+
+                        <div class="d-flex flex-column text-dark-75">
+                            <span class="font-weight-bolder">Đã đi xem căn hộ</span>
+                            <span class="font-weight-bolder font-size-h5" id="dadixemcanho">
+                                0
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-center flex-lg-fill mr-5 my-1">
+                        <div class="symbol symbol-45 symbol-light-light mr-4">
+                            <span class="symbol-label">
+                                <span class="svg-icon svg-icon-2x">
+
+                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                            <rect x="0" y="0" width="24" height="24" />
+                                            <path d="M19,11 L21,11 C21.5522847,11 22,11.4477153 22,12 C22,12.5522847 21.5522847,13 21,13 L19,13 C18.4477153,13 18,12.5522847 18,12 C18,11.4477153 18.4477153,11 19,11 Z M3,11 L5,11 C5.55228475,11 6,11.4477153 6,12 C6,12.5522847 5.55228475,13 5,13 L3,13 C2.44771525,13 2,12.5522847 2,12 C2,11.4477153 2.44771525,11 3,11 Z M12,2 C12.5522847,2 13,2.44771525 13,3 L13,5 C13,5.55228475 12.5522847,6 12,6 C11.4477153,6 11,5.55228475 11,5 L11,3 C11,2.44771525 11.4477153,2 12,2 Z M12,18 C12.5522847,18 13,18.4477153 13,19 L13,21 C13,21.5522847 12.5522847,22 12,22 C11.4477153,22 11,21.5522847 11,21 L11,19 C11,18.4477153 11.4477153,18 12,18 Z" fill="#000000" fill-rule="nonzero" opacity="0.3" />
+                                            <circle fill="#000000" opacity="0.3" cx="12" cy="12" r="2" />
+                                            <path d="M12,17 C14.7614237,17 17,14.7614237 17,12 C17,9.23857625 14.7614237,7 12,7 C9.23857625,7 7,9.23857625 7,12 C7,14.7614237 9.23857625,17 12,17 Z M12,19 C8.13400675,19 5,15.8659932 5,12 C5,8.13400675 8.13400675,5 12,5 C15.8659932,5 19,8.13400675 19,12 C19,15.8659932 15.8659932,19 12,19 Z" fill="#000000" fill-rule="nonzero" />
+                                        </g>
+                                    </svg>
+
+                                </span>
+                            </span>
+                        </div>
+
+                        <div class="d-flex flex-column flex-lg-fill">
+                            <span class="text-dark-75 font-weight-bolder">Chưa được chỉ định</span>
+                            <span class="font-weight-bolder font-size-h5">
+                                <b id="chuachidinh">0</b>
+                            </span>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        <div class="separator separator-solid my-7"></div>
+        <div id="danh-sach">
+
+        </div>
+    </div>
+</div>
+
+@section ScriptsFile{
+
+    <script src="~/Scripts/parsley.min.js"></script>
+}
+@section CustomScripts{
+    <script type="text/javascript">
+        var id = 0;
+        var dataSource = new DevExpress.data.CustomStore({
+            load: function (loadOptions) {
+                var deferred = $.Deferred(), params = {}, filter = [];
+
+                if (loadOptions.filter) {
+                    var fil = JSON.stringify(loadOptions.filter);
+                    if (fil.indexOf('],"and",[') > 0) {
+                        $.each(loadOptions.filter, function (i, v) {
+                            if (i % 2 == 0) {
+                                filter.push({ Column: v[0], Compare: v[1], Value: v[2] });
+                            }
+                        });
+                    }
+                    else {
+                        filter.push({ Column: loadOptions.filter[0], Compare: loadOptions.filter[1], Value: loadOptions.filter[2] });
+                    }
+
+                }
+                //filter.push({ Column: 'CONVERT(DATE,PNH.NgayGiaoHang)', Compare: '>=', Value: tungay });
+                //filter.push({ Column: 'CONVERT(DATE,PNH.NgayGiaoHang)', Compare: '<=', Value: denngay });
+                //if (ncc != null) {
+                //    filter.push({ Column: 'PNH.IdNhaCungCap', Compare: '=', Value: ncc });
+                //}
+                //if (sophieu != null && sophieu.trim()!="") {
+                //    filter.push({ Column: 'PNH.SoPhieu', Compare: '=', Value: sophieu });
+                //}
+                params.Filter = JSON.stringify(filter);
+
+                params.PageSize = loadOptions.take;
+                params.Page = loadOptions.skip / params.PageSize + 1;
+                if (params.Page == null || params.Page == undefined || isNaN(params.Page)) {
+                    return;
+                }
+               
+                return deferred.promise();
+            }
+        });
+        @*var dataLoaiNhuCau =@Html.Raw(RealEstate.Libs.ThongTin.GetLoaiNhuCau()), dataDuAn =@Html.Raw(RealEstate.Libs.ThongTin.GetDuAn()),
+            dataPhuTrach=@Html.Raw(RealEstate.Libs.ThongTin.GetNguoiDung()),dataHuong =@Html.Raw(RealEstate.Libs.ThongTin.GetDanhMucString("huong"));*@
+        $(function () {
+            var wh = $(window).height();
+            $('#danh_sach').height(wh - 200);
+            LoadData();
+        });
+        function LoadData() {
+            try {
+                KTApp.blockPage({ overlayColor: '#000000', state: 'primary', message: 'Đang load dữ liệu...' });
+                 $.getJSON("@Url.Action("getDataYeuCau", "GuiYeuCau")")
+                    .done(function (dt) {
+                        if (dt) {
+
+                            var tong = dt.soyeucau.toLocaleString('en-GB', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+
+                            $('#yeucauchidinh').html('<span class="text-warning">' + dt.yeucauchidinh.toLocaleString('en-GB', { minimumFractionDigits: 0, maximumFractionDigits: 0 }) + '/' + tong + '</span> Yêu cầu');
+                            $('#dadixemcanho').html('<span class="text-success">' + dt.dadixemcanho.toLocaleString('en-GB', { minimumFractionDigits: 0, maximumFractionDigits: 0 }) + '/' + tong + '</span> Yêu cầu');
+                            $('#chuachidinh').html('<span class="text-dark-65">' + dt.chuachidinh.toLocaleString('en-GB', { minimumFractionDigits: 0, maximumFractionDigits: 0 }) + '/' + tong + '</span> Yêu cầu');
+                            khoitaoLuoi(dt.yeucau);
+                        }
+                        else {  
+
+                            $('#yeucauchidinh').text('0');
+                            $('#dadixemcanho').text('0');
+                            $('#chuachidinh').text('0');
+                        }
+
+                    })
+                    .fail(function (jqxhr, textStatus, error) {
+                        deferred.reject("Data Loading Error");
+                    });
+                    KTApp.unblockPage();
+            } catch (e) {
+                KTApp.unblockPage();
+            }
+        }
+        function khoitaoLuoi(data) {
+            $("#danh-sach").dxDataGrid({
+                dataSource: data,
+                selection: {
+                    mode: "single"
+                }, remoteOperations: {
+                    paging: true,
+                    filtering: true
+                },
+                filterRow: {
+                    visible: true,
+                    applyFilter: "auto"
+                },
+                paging: {
+                    pageSize: 10
+                },
+                showRowLines: true,
+                rowAlternationEnabled: false,
+                showBorders: true,
+                hoverStateEnabled: true,
+                allowColumnReordering: true,
+                allowColumnResizing: true,
+                columnAutoWidth: true,
+
+                pager: {
+                    showPageSizeSelector: true,
+                    allowedPageSizes: [10, 15, 20, 50, 100],
+                    showInfo: true
+                },
+                columnFixing: {
+                    enabled: false
+                },
+                filterRow: {
+                    visible: true,
+                },
+                headerFilter: {
+                    visible: true
+                },
+                columns: [{
+                    dataField: 'id', caption: 'Id', fixed: true, fixedPosition: "left",
+                    cellTemplate: function (container, options) {
+                        var data = options.data;
+                        container.html('#' + data.id);
+                    }
+                },
+                { dataField: 'ten_khach_hang', caption: 'Tên khách hàng', fixed: true, fixedPosition: "left" },
+                { dataField: 'so_dien_thoai', caption: 'Số điện thoại', fixed: true, fixedPosition: "left" },
+                { dataField: 'sale', caption: 'Sales', fixed: true, fixedPosition: "left" },
+                {
+                    dataField: 'ten_loai_nhu_cau', caption: 'Loại nhu cầu'
+                },
+                    { dataField: 'dien_tich', caption: 'Diện tích (㎡)' ,alignment: 'center'},
+                { dataField: 'gia', caption: 'Giá' },
+                { dataField: 'so_phong_ngu', caption: 'Số phòng ngủ' },
+                { dataField: 'huong', caption: 'Hướng' },
+                { dataField: 'views', caption: 'Views' },
+                { dataField: 'tang', caption: 'Tầng' },
+                { dataField: 'ngay_tao', caption: 'Ngày tạo', dataType: 'date', format: 'dd/MM/yyyy' },
+                { dataField: 'du_kien_xem_nha', caption: 'Dự kiến xem nhà', dataType: 'date', format: 'dd/MM/yyyy' },
+                {
+                    caption: 'Tác vụ', fixed: true, dataField: "id", fixedPosition: "right", alignment: 'center', editCellTemplate: function (cellElement, cellInfo) {
+                        var data = cellInfo.data;
+                        $('<div>').appendTo(cellElement).dxMenu({
+                            items: [{
+                                icon: 'flaticon2-gear text-primary',
+                                items: [{
+                                    icon: "flaticon-eye text-success",
+                                    text: 'Chi tiết yêu cầu',
+                                     visible:"@detail" == "True" ? true : false,
+                                }, {
+                                    icon: 'text-primary flaticon-edit-1',
+                                    text: 'Sửa yêu cầu',
+                                     visible:"@edit" == "True" ? true : false,
+                                }, {
+                                    icon: 'flaticon2-pen text-info',
+                                     text: 'Chỉ định căn hộ',
+                                     visible:"@chidinh" == "True" ? true : false,
+                                },
+                                {
+                                    icon: "flaticon2-trash text-danger",
+                                    text: 'Xóa',
+                                    visible:"@del" == "True" ? true : false,
+                                }]
+                            }], itemTemplate: function (itemData, itemIndex, itemElement) {
+                                //if (itemData.text) { itemElement.append('<span class="navi-icon mr-2"><i class="' + itemData.icon + '"></i></span><span class="font-weight-bold font-size-h5 text-dark-75 text-hover-primary">' + itemData.text + '</span>'); } else {
+                                //    itemElement.append('<span class="svg-icon svg-icon-xl svg-icon-primary"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">    <rect x="0" y="0" width="24" height="24"></rect>    <path d="M5,8.6862915 L5,5 L8.6862915,5 L11.5857864,2.10050506 L14.4852814,5 L19,5 L19,9.51471863 L21.4852814,12 L19,14.4852814 L19,19 L14.4852814,19 L11.5857864,21.8994949 L8.6862915,19 L5,19 L5,15.3137085 L1.6862915,12 L5,8.6862915 Z M12,15 C13.6568542,15 15,13.6568542 15,12 C15,10.3431458 13.6568542,9 12,9 C10.3431458,9 9,10.3431458 9,12 C9,13.6568542 10.3431458,15 12,15 Z" fill="#000000"></path></g></svg></span>');
+                                //}
+                                if (itemData.text) {
+                                    if (itemIndex == 0 && "@detail" == "True") {
+
+                                        itemElement.append('<a class="mt-6 p-3" href="@Url.Action( "ChiTiet", "GuiYeuCau")?id=' + data.id + '"><span class="navi-icon mr-2"><i class="' + itemData.icon + '"></i></span><span class="font-weight-bold font-size-h5 text-dark-75 text-hover-primary">' + itemData.text + '</span></a>');
+                                        }
+                                        else if (itemIndex == 1 && "@edit" == "True") {
+
+                                        itemElement.append('<a class="mt-6 p-3" href="@Url.Action("ChinhSua", "GuiYeuCau")?id=' + data.id + '"><span class="navi-icon mr-2"><i class="' + itemData.icon + '"></i></span><span class="font-weight-bold font-size-h5 text-dark-75 text-hover-primary">' + itemData.text + '</span></a>');
+                                        }
+                                        else if (itemIndex == 2 && "@chidinh" == "True") {
+
+                                        itemElement.append('<a class="mt-3 p-3" href="@Url.Action("ChiDinhCanHo", "GuiYeuCau")?id=' + data.id + '" ><span class="navi-icon mr-2"><i class="' + itemData.icon + '"></i></span><span class="font-weight-bold font-size-h5 text-dark-75 text-hover-primary">' + itemData.text + '</span></a>');
+                                        }
+                                        else if (itemIndex == 3 && "@del" == "True") {
+
+                                        itemElement.append('<span onclick="xoayeucau(' + data.id+ ')" class="navi-icon mt-3 p-3"><i class="' + itemData.icon + '"></i></span><span class="font-weight-bold font-size-h5 text-dark-75 text-hover-primary">' + itemData.text + '</span>');
+                                        }
+                                }
+                                else {
+                                    itemElement.append('<span class="svg-icon svg-icon-xl svg-icon-primary"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">    <rect x="0" y="0" width="24" height="24"></rect>    <path d="M5,8.6862915 L5,5 L8.6862915,5 L11.5857864,2.10050506 L14.4852814,5 L19,5 L19,9.51471863 L21.4852814,12 L19,14.4852814 L19,19 L14.4852814,19 L11.5857864,21.8994949 L8.6862915,19 L5,19 L5,15.3137085 L1.6862915,12 L5,8.6862915 Z M12,15 C13.6568542,15 15,13.6568542 15,12 C15,10.3431458 13.6568542,9 12,9 C10.3431458,9 9,10.3431458 9,12 C9,13.6568542 10.3431458,15 12,15 Z" fill="#000000"></path></g></svg></span>');
+                                }
+                            },
+                            showFirstSubmenuMode: 'onClick',
+                            hideSubmenuOnMouseLeave: true,
+                            @*onItemClick: function (e) {
+                                if (e.itemData.text) {
+                                    if (e.itemIndex == 0) {
+                                        window.location.href = '@Url.Action( "ChiTiet", "GuiYeuCau")?id=' + cellInfo.data.id;
+                                    } else if (e.itemIndex == 1) {
+                                        suayeucau(cellInfo.data);
+                                    } else if (e.itemIndex == 2) {
+                                        window.location.href = '@Url.Action("ChiDinhCanHo","GuiYeuCau")?id=' + cellInfo.data.id;
+                                    }else
+                                    if (e.itemIndex == 3)
+                                        xoayeucau(cellInfo.data);
+                                }
+
+                            },*@
+                        });
+                    }, showEditorAlways: true,
+
+                    width: 70,
+                    visible:"@menu" == "True" ? true : false,
+                },
+                ],
+                onRowPrepared(e) {
+                    if (e.rowType == 'data' && e.data.trang_thai == 3) {
+                        e.rowElement.addClass('bg-light-warning');
+                        e.rowElement.removeClass('dx-row-alt');
+                    }
+                    else if (e.rowType == 'data' && e.data.trang_thai == 4) {
+                         e.rowElement.addClass('bg-light-success');
+                    }
+                    else {
+                        e.rowElement.css('background-color', '#f5f4f1')
+                        e.rowElement.css
+                    }
+
+                },
+               
+                @*onRowDblClick: function (e) {
+                    self.location = "@Url.Action("ChiTiet","GuiYeuCau")?id=" + e.key.id;
+                },*@
+            });
+        }
+
+        function xoayeucau(id, $Ten) {
+            Swal.fire({
+                title: "Cảnh báo?",
+                html: '<b class="text-danger">Bạn có chắc xóa yêu cầu đang chọn?',
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Xóa",
+                cancelButtonText: "Hủy",
+                reverseButtons: true
+            }).then(function (result) {
+                if (result.value) {
+                    KTApp.blockPage({ overlayColor: '#000000', state: 'primary', message: 'Đang xóa...' });
+                    $.post('@Url.Action("XoaYeuCau", "GuiYeuCau")', { id: id, __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val() }).done(function (rs) {
+                        KTApp.unblockPage();
+                        if (rs.rs_code == 1) {
+                            LoadData();
+
+                            ShowToast.success('Xóa yêu cầu thành công', 3000);
+                        } else {
+                            Swal.fire("Có lỗi!", rs.rs_text, "error");
+
+                        }
+                    }).fail(function () {
+                        KTApp.unblockPage();
+                        ShowToast.warning('Có lỗi xảy ra', 3000);
+                    });
+                } else if (result.dismiss === "cancel") {
+                    ShowToast.info('Bạn đã hủy xóa yêu cầu', 3000);
+
+                }
+            });
+        }
+        function suayeucau(dt) {
+            window.location.href = '@Url.Action( "ChinhSua", "GuiYeuCau")?id=' + dt.id;
+        }
+
+    </script>
+}

@@ -1,0 +1,179 @@
+﻿@{
+    ViewBag.Title = Resources.App.CanHo_DanhSach;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    bool bNew = false, bEdit = false, bDel = false, bmenu = false;
+    if (User.IsInRole("0=0") || User.IsInRole("47=1"))
+    {
+        bNew = true;
+    }
+    if (User.IsInRole("0=0") || User.IsInRole("48=1"))
+    {
+        bEdit = true;
+    }
+    if (User.IsInRole("0=0") || User.IsInRole("49=1"))
+    {
+        bDel = true;
+    }
+    if (bEdit || bDel)
+    {
+        bmenu = true;
+    }
+}
+@section Header{
+    <div class="d-flex align-items-center flex-wrap mr-1">
+        <button class="btn btn-icon mr-4" id="kt_aside_toggle">
+            <span class="svg-icon svg-icon-xl">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <rect x="0" y="0" width="24" height="24" />
+                        <path d="M2 11.5C2 12.3284 2.67157 13 3.5 13H20.5C21.3284 13 22 12.3284 22 11.5V11.5C22 10.6716 21.3284 10 20.5 10H3.5C2.67157 10 2 10.6716 2 11.5V11.5Z" fill="black" />
+                        <path opacity="0.5" fill-rule="evenodd" clip-rule="evenodd" d="M9.5 20C8.67157 20 8 19.3284 8 18.5C8 17.6716 8.67157 17 9.5 17H20.5C21.3284 17 22 17.6716 22 18.5C22 19.3284 21.3284 20 20.5 20H9.5ZM15.5 6C14.6716 6 14 5.32843 14 4.5C14 3.67157 14.6716 3 15.5 3H20.5C21.3284 3 22 3.67157 22 4.5C22 5.32843 21.3284 6 20.5 6H15.5Z" fill="black" />
+                    </g>
+                </svg>
+            </span>
+        </button>
+        <div class="d-flex align-items-baseline flex-wrap mr-5">
+            <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 ">
+                <li class="breadcrumb-item text-muted">
+                    <a href="javascript:;" class="text-muted">@Resources.App.ThongTin</a>
+                </li>
+                <li class="breadcrumb-item text-muted">
+                    <a href="@Url.Action(" ChuNha","ThongTin")" class="text-muted"> @Resources.App.ChuNha</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="d-flex">
+        @*<a href="javascript: void(0);" class="btn  btn-light-success  font-weight-bolder mr-2" id="btn_restore">
+            <i class="flaticon2-reply-1"></i> <span id="text-restore"></span>
+        </a>*@
+        @if (bNew)
+        {
+            <a href="@Url.Action("ChuNhaChiTiet","ThongTin")" class="btn btn-primary font-weight-bolder mr-5">
+                <i class="icon-1x text-dark-40 ki ki-solid-plus"></i> @Resources.App.ThemMoi
+            </a>
+        }
+
+    </div>
+}
+<div class="row">
+    <div class="col-lg-12 center">
+        <div id="list_danh_sach"></div>
+    </div>
+</div>
+@section CustomScripts{
+<script type="text/javascript">
+    $(function () {
+        var wh = $(window).height();
+        $('#list_danh_sach').height(wh - 200);
+        Load();
+    });
+    function Load() {
+        try {
+            KTApp.blockPage({ overlayColor: '#000000', state: 'primary', message: 'Đang tải dữ liệu...' });
+            $.get("@Url.Action("getChuNha", "ThongTin")").done(function (rs) {
+            $("#list_danh_sach").dxDataGrid({
+                dataSource: rs,
+                showRowLines: true,
+                rowAlternationEnabled: true,
+                showBorders: true,
+                hoverStateEnabled: true,
+                allowColumnReordering: true,
+                allowColumnResizing: true,
+                columnAutoWidth: true,
+                keyExpr: "IdChuNha",
+                filterRow: {
+                    visible: true,
+                    applyFilter: "auto"
+                },
+                paging: {
+                    pageSize: 10
+                },
+                pager: {
+                    showPageSizeSelector: true,
+                    allowedPageSizes: [10, 15, 20, 50, 100],
+                    showInfo: true
+                },
+                columns: [
+                    {
+                        dataField: "IdChuNha",
+                        caption: "#",
+                        width: 100,
+                        visible:"@bmenu"=="True"?true:false,
+                        // fixedPosition: "right",
+                        fixed: true,
+                        cellTemplate: function (container, options) {
+                            var data = options.data;
+                            container.html('@if (bEdit) { <a href="@Url.Action("ChuNhaChiTiet", "ThongTin")?Id=' + data.IdChuNha + '" class="btn btn-sm btn-default btn-text-primary btn-hover-primary btn-icon"   data-toggle="tooltip" data-theme="dark" title="Chỉnh sửa"><i class="la la-edit text-primary"></i></a> } @if (bDel) { <a onclick="XoaChuNha(' + data.IdChuNha + ')" class="btn btn-sm btn-default btn-text-primary btn-hover-primary btn-icon"   data-toggle="tooltip" data-theme="dark" title="Xóa"><i class="la flaticon-delete text-primary"></i></a>} ');
+                        }
+                    },
+                    {
+                        dataField: "TenChuNha",
+                        caption: "Tên chủ nhà",
+                        width: 250,
+                        validationRules: [{ type: "required", message: "Chưa nhật tên loại dự án" }]
+                    },
+                    {
+                        dataField: "LienHe",
+                        caption: "Liên hệ",
+                        width: 250,
+                        validationRules: [{ type: "required", message: "Chưa nhật tên loại dự án" }]
+                    },
+                    {
+                        dataField: "QuocTich",
+                        caption: "Quốc tịch",
+                    },
+                    {
+                        dataField: "GhiChu",
+                        caption: "Ghi chú",
+                    }
+                ]
+
+                });
+                KTApp.unblockPage();
+        });
+        } catch (e) {
+            KTApp.unblockPage();
+        }
+    }
+    function XoaChuNha(id) {
+         if ("@bDel" == "True") {
+                var data = {}
+                data.id = id;
+                data.__RequestVerificationToken = $('input[name="__RequestVerificationToken"]').val();
+                 Swal.fire({
+                        title: "Cảnh báo?",
+                        html: 'Bạn có chắc xóa thông tin đang chọn không?<br />. Đã xóa thì không thể khôi phục được!',
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonText: "Có, xóa ngay!",
+                        cancelButtonText: "Hủy!",
+                        reverseButtons: true
+                    }).then(function (result) {
+                        if (result.value) {
+                            $.post("@Url.Action("XoaChuNha","ThongTin")", data).done(function (rs) {
+                                if (rs.rs_code = 1) {
+                                    ShowToast.success('Xóa file thành công', 3000);
+                                    Load();
+                                }
+                                else {
+                                    ShowToast.warning(rs.rs_text, 3000);
+                                }
+                            }).fail(function () {
+                                ShowToast.warning('Có lỗi xảy ra', 3000);
+                            });
+                        } else if (result.dismiss === "cancel") {
+                            ShowToast.info('Bạn đã hủy xóa thông tin', 3000);
+
+                        }
+                    });
+                $.post("@Url.Action("XoaChuNha","ThongTin")", data).done(function (rs) {
+                });
+            }
+
+    }
+</script>
+
+}

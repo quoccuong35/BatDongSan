@@ -1,0 +1,10 @@
+Username Admin	dung.nguyenthihuong@danhland.com	
+Password	24071987	
+server datat
+define( 'DB_NAME', 'tec69758_danhland' );
+
+define( 'DB_USER', 'tec69758_admin' );
+
+define( 'DB_PASSWORD', 'Danhland@2020' );
+
+define( 'DB_HOST', '112.78.2.24:3306' );

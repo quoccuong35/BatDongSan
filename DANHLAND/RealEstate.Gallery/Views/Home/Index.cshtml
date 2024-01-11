@@ -1,0 +1,33 @@
+﻿<style>
+     .title {
+        font-size: 38px;
+        font-weight: 700;
+        color: #7c2f2e;
+    }
+    .meta-desc {
+        font-size: 22px;
+        color: #333;
+    }
+    .images {
+        width: 100%;
+        text-align: center;
+    }
+</style>
+<div>
+    <center>
+        <div class="title">@Model.CanHo.LoaiCanHo - @Model.CanHo.DuAn</div>
+        <div class="meta-desc">Hướng cửa:@Model.CanHo.HuongCua - Hướng Ban Công: @Model.CanHo.HuongBanCong - View: @Model.CanHo.VIEW</div>
+        <div class="meta-desc">Bàn giao:@Model.CanHo.LoaiBanGiao</div>
+    </center>
+    <div class="images">
+        @{
+            int j = 1;
+            foreach (var item in Model.Images)
+            {
+                <img src="@ViewBag.Url@item.Url" class="child" style="width:250px;height:300px">
+                j++;
+            }
+        }
+    </div>
+
+</div>

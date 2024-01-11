@@ -1,0 +1,130 @@
+﻿@using RealEstate.Entity;
+@model dl_yeucau
+@{
+    ViewBag.Title = Resources.App.KhachHang;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    decimal id = Model.id;
+}
+@section Header{
+
+    <div class="d-flex align-items-center flex-wrap mr-1">
+
+        <button class="btn btn-icon mr-4" id="kt_aside_toggle">
+            <span class="svg-icon svg-icon-xl">
+
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <rect x="0" y="0" width="24" height="24" />
+                        <path d="M2 11.5C2 12.3284 2.67157 13 3.5 13H20.5C21.3284 13 22 12.3284 22 11.5V11.5C22 10.6716 21.3284 10 20.5 10H3.5C2.67157 10 2 10.6716 2 11.5V11.5Z" fill="black" />
+                        <path opacity="0.5" fill-rule="evenodd" clip-rule="evenodd" d="M9.5 20C8.67157 20 8 19.3284 8 18.5C8 17.6716 8.67157 17 9.5 17H20.5C21.3284 17 22 17.6716 22 18.5C22 19.3284 21.3284 20 20.5 20H9.5ZM15.5 6C14.6716 6 14 5.32843 14 4.5C14 3.67157 14.6716 3 15.5 3H20.5C21.3284 3 22 3.67157 22 4.5C22 5.32843 21.3284 6 20.5 6H15.5Z" fill="black" />
+                    </g>
+                </svg>
+
+            </span>
+        </button>
+
+        <div class="d-flex align-items-baseline flex-wrap mr-5">
+
+            <h5 class="text-dark font-weight-bold my-1 mr-5">
+                @Resources.App.KhachHang
+
+            </h5>
+            <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 ">
+                <li class="breadcrumb-item text-muted">
+                    <a href="" class="text-muted">@Resources.App.ChinhSua</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="d-flex align-items-center">
+        <a href="@Url.Action("KhachHang","ThongTin")" class="btn btn-default font-weight-bold  px-2 font-size-base  mr-2"> <i class="icon-1x text-dark-40 ki flaticon-reply"></i> @Resources.App.QuayLai</a>
+        @if (User.IsInRole("0=0") || User.IsInRole("55=1"))
+        {
+            <div class="btn-group ml-2">
+                <button type="button" class="btn btn-primary font-weight-bold px-2 font-size-base" id="btn-save">
+                    <i class="icon-1x text-dark-40 ki ki-solid-plus"></i>
+                    @Resources.App.CapNhat
+                </button>
+            </div>
+        }
+    </div>
+}
+<div class="card card-custom">
+    <div class="card-body">
+        <form id="inputform" class="form" data-parsley-validate>
+            <div class="form-group row">
+                <div class="col-lg-6">
+                    <label class="form-label">Tên khách hàng<b class="text-danger">*</b></label>
+                    <input type="text" class="form-control form-control-solid" id="txt-tenkhachhang" placeholder="Tên khách hàng" required name="tenkhachhang" value="@Model.ten_khach_hang">
+                </div>
+                <div class="col-lg-6">
+                    <label class="form-label">Số điện thoại <b class="text-danger">*</b></label>
+                    <input type="text" class="form-control" id="txt-dienthoai" placeholder="" value="@Model.so_dien_thoai" required name="dienthoai">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-lg-6">
+                    <label class="form-label">Zalo</label>
+                    <input type="text" class="form-control form-control-solid" id="txt-zalo"  name="zalo" value="@Model.zalo">
+                </div>
+                <div class="col-lg-6">
+                    <label class="form-label">Messenger</label>
+                    <input type="text" class="form-control" id="txt-messenger" placeholder="" value="@Model.messenger" name="messenger">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-lg-6">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-control form-control-solid" id="txt-email" name="email" value="@Model.email_khach_hang">
+                </div>
+                <div class="col-lg-6">
+                    <label class="form-label">Nghề nghiệp</label>
+                    <input type="text" class="form-control" id="txt-nghenghiep" placeholder="" value="@Model.nghe_nghiep" name="nghenghiep">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-lg-12">
+                    <label class="form-label">Địa chỉ</label>
+                    <input type="text" class="form-control" id="txt-diachi" placeholder="" value="@Model.dia_chi" name="diachi">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+@section ScriptsFile{
+    <script src="~/Scripts/ckeditor-document.bundle.js"></script>
+    <script src="~/Scripts/uppy.bundle.js"></script>
+    <script src="~/Scripts/parsley.min.js"></script>
+}
+@section CustomScripts{
+    <script type="text/javascript">
+        $(function () {
+            $("#btn-save").click(function () {
+                if ("@User.IsInRole("0=0")" == "True" ||"@User.IsInRole("55=1")" == "True") {
+                    var data = {};
+                    data.id = "@id";
+                    data.ten_khach_hang = $('#txt-tenkhachhang').val();
+                    data.so_dien_thoai = $('#txt-dienthoai').val();
+                    data.dia_chi = $('#txt-diachi').val();
+                    data.zalo = $('#txt-zalo').val();
+                    data.messenger = $('#txt-messenger').val();
+                    data.email_khach_hang = $('#txt-email').val();
+                    data.nghe_nghiep = $('#txt-nghenghiep').val();
+                    data.__RequestVerificationToken = $('input[name="__RequestVerificationToken"]').val();
+                    if ($('#inputform').parsley().validate()) {
+                        $.post("@Url.Action("EditKhachHang","ThongTin")", data).done(function (rs) {
+                            if (rs.rs_code == 1) {
+                                 ShowToast.success('Thành công', 3000);
+                            }
+                        }).fail(function () {
+                            Swal.fire("Có lỗi!", rs.rs_text, "error");
+                        })
+                    } else {
+                        ShowToast.warning('Bạn cần nhập đủ các trường bắt buộc trước khi lưu', 3000);
+                    }
+                }
+            });
+        });
+    </script>
+}

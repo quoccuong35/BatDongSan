@@ -1,0 +1,634 @@
+﻿
+@{
+    ViewBag.Title = Resources.App.DuAn;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    bool bNew = false, bEdit = false, bDel = false;
+    if (User.IsInRole("0=0") || User.IsInRole("43=1"))
+    {
+        bNew = true;
+    }
+    if (User.IsInRole("0=0") || User.IsInRole("44=1"))
+    {
+        bEdit = true;
+    }
+    if (User.IsInRole("0=0") || User.IsInRole("45=1"))
+    {
+        bDel = true;
+    }
+}
+@section Header{
+    <div class="d-flex align-items-center flex-wrap mr-1">
+        <button class="btn btn-icon mr-4" id="kt_aside_toggle">
+            <span class="svg-icon svg-icon-xl">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <rect x="0" y="0" width="24" height="24" />
+                        <path d="M2 11.5C2 12.3284 2.67157 13 3.5 13H20.5C21.3284 13 22 12.3284 22 11.5V11.5C22 10.6716 21.3284 10 20.5 10H3.5C2.67157 10 2 10.6716 2 11.5V11.5Z" fill="black" />
+                        <path opacity="0.5" fill-rule="evenodd" clip-rule="evenodd" d="M9.5 20C8.67157 20 8 19.3284 8 18.5C8 17.6716 8.67157 17 9.5 17H20.5C21.3284 17 22 17.6716 22 18.5C22 19.3284 21.3284 20 20.5 20H9.5ZM15.5 6C14.6716 6 14 5.32843 14 4.5C14 3.67157 14.6716 3 15.5 3H20.5C21.3284 3 22 3.67157 22 4.5C22 5.32843 21.3284 6 20.5 6H15.5Z" fill="black" />
+                    </g>
+                </svg>
+            </span>
+        </button>
+        <div class="d-flex align-items-baseline flex-wrap mr-5">
+            <h5 class="text-dark font-weight-bold my-1 mr-5">@Resources.App.DuAn</h5>
+            <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 ">
+                <li class="breadcrumb-item text-muted">
+                    <a href="javascript:;" class="text-muted">@Resources.App.ThongTin</a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+    <div class="d-flex align-items-center">
+        <a href="javascript: void(0);" class="btn  btn-light-success hide font-weight-bolder mr-2" id="btn_restore">
+            <i class="flaticon2-reply-1"></i> <span id="text-restore"></span>
+        </a>
+        <a href="javascript: void(0);" class="btn  btn-light-warning hide font-weight-bolder mr-2" id="btn_hiden">
+            <i class="flaticon-medical"></i> <span id="text-antin"></span>
+        </a>
+        @if (bDel)
+        {
+            <a href="javascript: void(0);" class="btn  btn-light-danger hide font-weight-bolder mr-2" id="btn_delete">
+                <i class="flaticon-delete"></i> <span id="text-delete"></span>
+            </a>
+        }
+
+        @if (bNew)
+        {
+            <button class="btn btn-primary font-weight-bolder" id="iAdd">
+                <span class="svg-icon svg-icon-md">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <rect x="0" y="0" width="24" height="24"></rect>
+                            <circle fill="#000000" cx="9" cy="15" r="6"></circle>
+                            <path d="M8.8012943,7.00241953 C9.83837775,5.20768121 11.7781543,4 14,4 C17.3137085,4 20,6.6862915 20,10 C20,12.2218457 18.7923188,14.1616223 16.9975805,15.1987057 C16.9991904,15.1326658 17,15.0664274 17,15 C17,10.581722 13.418278,7 9,7 C8.93357256,7 8.86733422,7.00080962 8.8012943,7.00241953 Z" fill="#000000" opacity="0.3"></path>
+                        </g>
+                    </svg>
+                </span>@Resources.App.TaoDuAnMoi
+            </button>
+        }
+    </div>
+}
+<div class="row">
+
+    <div class="col-lg-12">
+        <div id="list_danh_sach"></div>
+    </div>
+</div>
+
+
+
+
+<!-- Modal-->
+<div class="modal fade" id="mdDuAn" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="mdDuAnLabel">Thêm mới dự án</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i aria-hidden="true" class="ki ki-close"></i>
+                </button>
+            </div>
+            <div class="modal-body pb-0 pt-2">
+                <form id="inputform" class="form" data-parsley-validate>
+                    <div class="form-group row">
+                        <div class="col-lg-3">
+                            <label class="form-label">Mã dự án <b class="text-danger">*</b></label>
+                            <div class="input-icon">
+                                <input type="text" class="form-control form-control-solid" id="ma_duan" maxlength="50" placeholder="Nhập mã dự án" required>
+                                <span class="svg-icon svg-icon-primary">
+                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                            <rect x="0" y="0" width="24" height="24" />
+                                            <polygon fill="#000000" opacity="0.3" transform="translate(8.885842, 16.114158) rotate(-315.000000) translate(-8.885842, -16.114158) " points="6.89784488 10.6187476 6.76452164 19.4882481 8.88584198 21.6095684 11.0071623 19.4882481 9.59294876 18.0740345 10.9659914 16.7009919 9.55177787 15.2867783 11.0071623 13.8313939 10.8837471 10.6187476" />
+                                            <path d="M15.9852814,14.9852814 C12.6715729,14.9852814 9.98528137,12.2989899 9.98528137,8.98528137 C9.98528137,5.67157288 12.6715729,2.98528137 15.9852814,2.98528137 C19.2989899,2.98528137 21.9852814,5.67157288 21.9852814,8.98528137 C21.9852814,12.2989899 19.2989899,14.9852814 15.9852814,14.9852814 Z M16.1776695,9.07106781 C17.0060967,9.07106781 17.6776695,8.39949494 17.6776695,7.57106781 C17.6776695,6.74264069 17.0060967,6.07106781 16.1776695,6.07106781 C15.3492424,6.07106781 14.6776695,6.74264069 14.6776695,7.57106781 C14.6776695,8.39949494 15.3492424,9.07106781 16.1776695,9.07106781 Z" fill="#000000" transform="translate(15.985281, 8.985281) rotate(-315.000000) translate(-15.985281, -8.985281) " />
+                                        </g>
+                                    </svg>
+                                </span>
+                            </div>
+
+
+                        </div>
+                        <div class="col-lg-9">
+                            <label class="form-label">Tên dự án <b class="text-danger">*</b></label>
+                            <input type="text" class="form-control form-control" id="ten_duan" placeholder="Nhập tên dự án" maxlength="150" required>
+                        </div>
+
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-lg-3">
+                            <label class="form-label">Loại dự án <b class="text-danger">*</b></label>
+                            <div id="select-loai_duan">
+
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <label class="form-label">Tình trạng <b class="text-danger">*</b></label>
+                            <div id="select-tinhtrang">
+
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <label class="form-label">Chủ đầu tư <b class="text-danger">*</b></label>
+                            <div id="select-chudautu">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-lg-3">
+                            <label class="form-label">Tỉnh thành phố <b class="text-danger">*</b></label>
+                            <div id="select-tinhthanhpho">
+
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <label class="form-label">Quận huyện <b class="text-danger">*</b></label>
+                            <div id="select-quanhuyen">
+
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <label class="form-label">Phường xã</label>
+                            <div id="select-phuongxa">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+
+                        <div class="col-lg-3">
+                            <label class="form-label">Đường</label>
+                            <input type="text" class="form-control form-control" id="duong" placeholder="Nhập tên đường" maxlength="150">
+                        </div>
+                        <div class="col-lg-5">
+                            <label class="form-label">Số nhà/Địa chỉ</label>
+                            <input type="text" class="form-control form-control" id="sonha" placeholder="Nhập số nhà/địa chỉ" maxlength="150">
+                        </div>
+                        <div class="col-lg-2">
+                            <label class="form-label">Latitude</label>
+                            <div id="lat">
+
+                            </div>
+                        </div>
+                        <div class="col-lg-2">
+                            <label class="form-label">Longitude</label>
+                            <div id="lng">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row" style="">
+
+                        <div class="col-lg-3">
+                            <label class="form-label">Website</label>
+                            <input type="text" class="form-control form-control" id="website" placeholder="Nhập website" maxlength="100">
+                        </div>
+                        <div class="col-lg-9">
+                            <label class="form-label">Ghi chú</label>
+                            <input type="text" class="form-control form-control" id="ghichu" placeholder="Nhập ghi chú" maxlength="500">
+                        </div>
+
+                    </div>
+                    <div class="form-group row">
+
+                        <div class="col-lg-12">
+                            <label class="form-label">Mô tả</label>
+                            <textarea class="form-control" id="mota" maxlength="1000" placeholder="Nhập thông tin mô tả dự án"></textarea>
+                        </div>
+
+
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Thoát</button>
+                <button type="button" class="btn btn-primary font-weight-bold" id="iUpdate">Cập nhật</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section ScriptsFile{
+    <script src="~/Scripts/ckeditor-document.bundle.js"></script>
+    <script src="~/Scripts/uppy.bundle.js"></script>
+    <script src="~/Scripts/parsley.min.js"></script>
+}
+@section CustomScripts{
+    <script type="text/javascript">
+        var dataTinhThanhPho =@Html.Raw(RealEstate.Libs.ThongTin.GetTinhThanh()),
+            dataLoaiDuAn =@Html.Raw(RealEstate.Libs.ThongTin.GetLoaiDuAn()),
+            dataTinhTrang =@Html.Raw(RealEstate.Libs.ThongTin.GetTinhTrangDuAn()),
+            dataChuDauTu =@Html.Raw(RealEstate.Libs.ThongTin.GetChuDauTu());
+        var duan = 0;
+        $(function () {
+            var wh = $(window).height();
+            $('#list_danh_sach').height(wh - 200);
+
+            loadTin();
+            $("#lat").dxNumberBox({
+                showClearButton: true, value: null
+            });
+            $("#lng").dxNumberBox({
+                showClearButton: true, value: null
+            });
+            $("#select-loai_duan").dxSelectBox({
+                items: dataLoaiDuAn,
+                placeholder: 'Chọn loại dự án',
+                showClearButton: false,
+                searchEnabled: true,
+                valueExpr: "ID",
+                displayExpr: "TenLoaiDuAn",
+            }).dxValidator({ validationRules: [{ type: "required", message: "Loại dự án không được trống!" }] });
+            $("#select-tinhthanhpho").dxSelectBox({
+                items: dataTinhThanhPho,
+                placeholder: 'Chọn tỉnh thành',
+                showClearButton: false,
+                searchEnabled: true,
+                valueExpr: "id_tinh_thanh_pho",
+                displayExpr: "ten_tinh_thanh_pho",
+                onValueChanged: function (e) { loadQuan(e.value); }
+            }).dxValidator({ validationRules: [{ type: "required", message: "Tỉnh thành phố không được trống!" }] });
+            $("#select-tinhtrang").dxSelectBox({
+                items: dataTinhTrang,
+                placeholder: 'Chọn tình trạng dự án',
+                showClearButton: false,
+                searchEnabled: true,
+                valueExpr: "tinhtrang",
+                displayExpr: "tentinhtrang",
+            }).dxValidator({ validationRules: [{ type: "required", message: "Tình trạng dự án không được trống!" }] });
+            $("#select-chudautu").dxSelectBox({
+                items: dataChuDauTu,
+                placeholder: 'Chọn chủ đầu tư',
+                showClearButton: false,
+                searchEnabled: true,
+                valueExpr: "IdChuDauTu",
+                displayExpr: "TenChuDauTu",
+            }).dxValidator({ validationRules: [{ type: "required", message: "Chủ đầu tư không được trống!" }] });
+            loadQuan(); loadPhuongXa();
+            $('#iAdd').click(function () {
+                if ("@bNew" == "True") {
+                    duan = 0;
+                    document.getElementById("inputform").reset();
+                    $('#mdDuAnLabel').text('Thêm mới dự án');
+                    $('#mdDuAn').modal('show');
+                }
+            });
+            $('#iUpdate').click(function () {
+                if ("@bEdit" == "True")
+                {
+                    var validate = true;
+                    var data = {};
+                    data.duan = duan;
+                    data.ma_duan = $('#ma_duan').val();
+                    data.ten_duan = $('#ten_duan').val();
+                    data.lat = $("#lat").dxNumberBox("instance").option('value');
+                    data.lng = $('#lng').dxNumberBox('instance').option('value');
+                    data.duong = $('#duong').val();
+                    data.sonha = $('#sonha').val();
+                    data.website = $('#website').val();
+                    data.mota = $('#mota').val();
+                    data.ghichu = $('#ghichu').val();
+                    data.__RequestVerificationToken = $('input[name="__RequestVerificationToken"]').val();
+                    data.loai_duan = $("#select-loai_duan").dxSelectBox("instance").option('value');
+                    if (!data.loai_duan) {
+                        validate = false;
+                        $('#select-loai_duan').dxValidator('instance').validate();
+                    }
+                    data.tinhtrang = $("#select-tinhtrang").dxSelectBox("instance").option('value');
+                    if (!data.tinhtrang) {
+                        validate = false;
+                        $('#select-tinhtrang').dxValidator('instance').validate();
+                    }
+                    data.chudautu = $("#select-chudautu").dxSelectBox("instance").option('value');
+                    if (!data.chudautu) {
+                        validate = false;
+                        $('#select-chudautu').dxValidator('instance').validate();
+                    }
+
+                    data.tinh_thanhpho = $("#select-tinhthanhpho").dxSelectBox("instance").option('value');
+                    if (!data.tinh_thanhpho) {
+                        validate = false;
+                        $('#select-tinhthanhpho').dxValidator('instance').validate();
+                    }
+                    data.quanhuyen = $("#select-quanhuyen").dxSelectBox("instance").option('value');
+                    if (!data.quanhuyen) {
+                        validate = false;
+                        $('#select-quanhuyen').dxValidator('instance').validate();
+                    }
+                    data.phuongxa = $("#select-phuongxa").dxSelectBox("instance").option('value');
+                    if ($('#inputform').parsley().validate() && validate) {
+                    KTApp.blockPage({
+                        overlayColor: '#000000',
+                        state: 'primary',
+                        message: 'Processing...'
+                    });
+                    $.post('@Url.Action("CapNhatDuAn", "ThongTin")', data).done(function (rs) {
+                        KTApp.unblockPage();
+                        if (rs.rs_code > 0) {
+                            duan = rs.rs_code;
+                            Swal.fire("Thành công!", rs.rs_text, "success");
+
+                            loadTin(); dongboDuAn();
+                        } else {
+                            Swal.fire("Có lỗi!", rs.rs_text, "error");
+
+                        }
+                    }).fail(function () {
+                        KTApp.unblockPage();
+                        ShowToast.warning('Có lỗi xảy ra', 3000);
+                    });
+                } else {
+                    ShowToast.warning('Bạn cần nhập đủ các trường bắt buộc trước khi lưu', 3000);
+                }
+               
+             }
+            });    
+        });
+        function loadQuan(tinh) {
+            $.get("@Url.Action("GetQuanHuyen", "ThongTin")", { Tinh: tinh }).done(function (rs) {
+                $("#select-quanhuyen").dxSelectBox({
+                    items: rs,
+                    placeholder: 'Chọn quận huyện',
+                    showClearButton: false,
+                    searchEnabled: true,
+                    valueExpr: "id_quan_huyen",
+                    displayExpr: "ten_quan_huyen",
+                    onValueChanged: function (e) {
+                        loadPhuongXa(e.value);
+                    }
+                }).dxValidator({ validationRules: [{ type: "required", message: "Quận huyện không được trống!" }] });
+            });
+        }
+         function loadPhuongXa(quan) {
+             $.get("@Url.Action("GetPhuongXa", "ThongTin")", { Quan: quan }).done(function (rs) {
+                 $("#select-phuongxa").dxSelectBox({
+                     items: rs,
+                     placeholder: 'Chọn quận huyện',
+                     showClearButton: false,
+                     searchEnabled: true,
+                     valueExpr: "id_phuong_xa",
+                     displayExpr: "ten_phuong_xa",
+                 });
+            });
+        }
+        function loadTin() {
+            $.get("@Url.Action("GetDuAn","ThongTin")").done(function (rs) {
+                $("#list_danh_sach").dxDataGrid({
+                    dataSource: rs,
+                    showRowLines: true,
+                    rowAlternationEnabled: true,
+                    showBorders: true,
+                    hoverStateEnabled: true,
+                    allowColumnReordering: true,
+                    allowColumnResizing: true,
+                    columnAutoWidth: true,
+                    keyExpr: "duan",
+                    filterRow: {
+                        visible: true,
+                        applyFilter: "auto"
+                    },
+                    paging: {
+                        pageSize: 10
+                    },
+                    pager: {
+                        showPageSizeSelector: true,
+                        allowedPageSizes: [10, 15, 20, 50, 100],
+                        showInfo: true
+                    },
+                    selection: {
+                        mode: "multiple"
+                    },
+                    onContentReady: function (e) {
+                        e.component.clearSelection();
+                        $('#btn_hiden,#btn_delete,#btn_restore').addClass('hide');
+                    },
+                    columns: [
+                        {
+                        dataField: "ma_duan",
+                        caption: "MÃ DỰ ÁN",
+                        allowEditing: false, fixed: true,
+
+                    },
+
+                    {
+                        dataField: "ten_duan",
+                        caption: "TÊN DỰ ÁN",
+
+                    },
+                    {
+                        dataField: "loai_duan",
+                        caption: "LOẠI DỰ ÁN",
+                        lookup: {
+                            dataSource: dataLoaiDuAn,
+                            valueExpr: "ID",
+                            displayExpr: "TenLoaiDuAn",
+                        }
+                        }, {
+                            dataField: "tinhtrang",
+                            caption: "TÌNH TRẠNG",
+                            lookup: {
+                                dataSource: dataTinhTrang,
+                                valueExpr: "tinhtrang",
+                                displayExpr: "tentinhtrang",
+                            }
+                        }, {
+                            dataField: "chudautu",
+                            caption: "CHỦ ĐẦU TƯ",
+                            lookup: {
+                                dataSource: dataChuDauTu,
+                                valueExpr: "IdChuDauTu",
+                                displayExpr: "TenChuDauTu",
+                            }
+                        },
+
+                    {
+                        dataField: "DiaChi",
+                        caption: "ĐỊA CHỈ"
+                        },
+                        {
+                            dataField: "tinh_thanhpho",
+                            caption: "TỈNH THÀNH",
+                            lookup: {
+                                dataSource: dataTinhThanhPho,
+                                valueExpr: "id_tinh_thanh_pho",
+                                displayExpr: "ten_tinh_thanh_pho",
+                            }
+                        },
+                    //{
+                    //    dataField: "wc",
+                    //    caption: "WC",
+                    //    allowEditing: false
+                    //},
+                    //{
+                    //    dataField: "dien_tich",
+                    //    caption: "DT",
+                    //    allowEditing: false
+                    //},
+                    //{
+                    //    dataField: "views",
+                    //    caption: "Views",
+                    //    lookup: {
+                    //        dataSource: dataViews,
+                    //        valueExpr: "term_taxonomy_id",
+                    //        displayExpr: "name",
+                    //    }
+                    //},
+                    //{
+                    //    dataField: "huong",
+                    //    caption: "HƯỚNG CỬA",
+                    //    lookup: {
+                    //        dataSource: dataHuongCua,
+                    //        valueExpr: "term_taxonomy_id",
+                    //        displayExpr: "name",
+                    //    }
+                    //},
+                    //    {
+                    //        dataField: "gia_ban",
+                    //        caption: "GIÁ BÁN",
+                    //        width: 100,
+                    //        allowEditing: false
+                    //    },
+                    //    {
+                    //        dataField: "gia_thue",
+                    //        caption: "GIÁ THUÊ",
+                    //        width: 100,
+                    //        allowEditing: false
+                    //    },
+                    //    {
+                    //        dataField: 'post_date',
+                    //        caption: 'NGÀY ĐĂNG',
+                    //        dataType: 'datetime', format: 'dd/MM/yyyy HH:mm a'
+                    //    }, {
+                    //        dataField: 'author',
+                    //        caption: 'NGƯỜI ĐĂNG',
+
+                    //    },
+                    ],
+                    onEditorPreparing: function (e) {
+                        if (e.parentType == "filterRow" && e.editorName == 'dxSelectBox')
+                            e.editorOptions.onOpened = function (e) { e.component._popup.option('width', 250); };
+                    },
+                    onSelectionChanged: function (selectedItems) {
+                        var data = selectedItems.selectedRowsData;
+                        if (data.length > 0) {
+                            $('#btn_delete').removeClass('hide');
+                            $('#text-delete').text('Xóa ' + data.length + ' dự án đã chọn');
+
+                        }
+                        else {
+                            $('#btn_delete').addClass('hide');
+                        }
+
+                    },
+                    onRowClick: function (e) {
+                        if ("@bEdit" == "True") {
+                            rowIndex = e.rowIndex;
+                            var component = e.component,
+                                prevClickTime = component.lastClickTime;
+                            component.lastClickTime = new Date();
+                            if (prevClickTime && (component.lastClickTime - prevClickTime < 300)) {
+                                if (e.data) {
+                                    var data = e.data;
+
+                                    $('#mdDuAnLabel').text('Dự án ' + data.ten_duan);
+
+                                    duan = data.duan;
+                                    $('#ma_duan').val(data.ma_duan);
+                                    $('#ten_duan').val(data.ten_duan);
+                                    $("#lat").dxNumberBox("instance").option('value', data.lat);
+                                    $('#lng').dxNumberBox('instance').option('value', data.lng);
+                                    $('#duong').val(data.duong);
+                                    $('#sonha').val(data.sonha);
+                                    $('#website').val(data.website);
+                                    $('#mota').val(data.mota);
+                                    $('#ghichu').val(data.ghichu);
+
+                                    $("#select-loai_duan").dxSelectBox("instance").option('value', data.loai_duan);
+
+                                    $("#select-tinhtrang").dxSelectBox("instance").option('value', data.tinhtrang);
+
+                                    $("#select-chudautu").dxSelectBox("instance").option('value', data.chudautu);
+
+
+                                    $("#select-quanhuyen").dxSelectBox("instance").option('value', data.quanhuyen);
+                                    $("#select-tinhthanhpho").dxSelectBox("instance").option('value', data.tinh_thanhpho);
+
+                                    $("#select-phuongxa").dxSelectBox("instance").option('value', data.phuongxa);
+                                    $('#mdDuAn').modal('show');
+                                }
+                            }
+                        }
+                        
+                    },
+                    //onCellPrepared: function (e) {
+                    //    if (e.rowType === "data" && (e.column.dataField === "post_status")) {
+                    //        var value = e.value;
+                    //        if (value =='publish') {
+                    //            e.cellElement.css({ "background-color": "#c6efce", 'color': '#2c6100' });
+                    //        } else {
+                    //            e.cellElement.css({ "background-color": "#ffc7ce" });
+                    //        }
+                    //    }
+                    //}
+                });
+            });
+        }
+        function dongboDuAn() {
+            $.post('@Url.Action("DongBoDuAn", "ThongTin")', { id: duan }).done(function (rs) {
+
+            }).fail(function () {
+
+            });
+        }
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            if ("@bDel" == "True") { 
+                 $('#btn_delete').click(function () {
+                var id = [];
+                $.each($("#list_danh_sach").dxDataGrid('instance').getSelectedRowsData(), function () {
+                    id.push(this.duan);
+                });
+
+                if (id.length > 0) {
+                    Swal.fire({
+                        title: "Cảnh báo?",
+                        html: '<b class="text-danger">Bạn có chắc xóa ' + id.length + ' dự án đã chọn không?</b><br />Dữ liệu đã xóa thì không thể khôi phục được!',
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonText: "Có, xóa ngay!",
+                        cancelButtonText: "Hủy!",
+                        reverseButtons: true
+                    }).then(function (result) {
+                        if (result.value) {
+                              KTApp.blockPage({ overlayColor: '#000000', state: 'primary', message: 'Đang xóa tin...' });
+                            $.post('@Url.Action("XoaDuAn", "ThongTin")', { id: id.join(), __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val() }).done(function (rs) {
+                                KTApp.unblockPage();
+                                if (rs.rs_code == 1) {
+                                    loadTin();
+
+                                    ShowToast.success('Xóa dự án thành công', 3000);
+                                } else {
+                                    Swal.fire("Có lỗi!", rs.rs_text, "error");
+
+                                }
+                            }).fail(function () {
+                                KTApp.unblockPage();
+                                ShowToast.warning('Có lỗi xảy ra', 3000);
+                            });
+                        } else if (result.dismiss === "cancel") {
+                            ShowToast.info('Bạn đã hủy xóa dự án', 3000);
+
+                        }
+                    });
+                }
+            });
+            }
+           
+        });
+    </script>
+}
